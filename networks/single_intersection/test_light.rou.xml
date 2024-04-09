@@ -1,0 +1,46 @@
+<routes>
+   <vType id="car"
+   			vClass="passenger" length="5" accel="3.5" decel="2.2"
+   			sigma="1.0" maxSpeed="10"/>
+
+   <vType id="emergency"
+      		vClass="emergency" length="7" accel="5.5" decel="2.2" sigma="1.0"
+      		maxSpeed="20" guiShape="emergency" speedFactor="2.0"
+      		minGapLat="0.2"/>
+
+    <route id="route_RMU" edges="-E1 -E0" />
+    <route id="route_RMD" edges="-E1 E2" />
+    <route id="route_RML" edges="-E1 E3" />
+
+    <route id="route_LMU" edges="-E3 -E0" />
+    <route id="route_LMD" edges="-E3 E2" />
+    <route id="route_LMR" edges="-E3 E1" />
+
+    <route id="route_DMR" edges="-E2 E1" />
+    <route id="route_DML" edges="-E2 E3" />
+    <route id="route_DMU" edges="-E2 -E0" />
+
+    <route id="route_UMD" edges="E0 E2" />
+    <route id="route_UML" edges="E0 E3" />
+    <route id="route_UMR" edges="E0 E1" />
+    
+
+    <flow id="carflowDMR" type="car" beg="0" end="0" number="10" from="-E2" to="E1"/>
+    <flow id="carflowDMU" type="car" beg="0" end="0" number="8" from="-E2" to="-E0"/>
+    <flow id="carflowUMD" type="car" beg="0" end="0" number="6" from="E0" to="E2"/>
+    <flow id="carflowUML" type="car" beg="0" end="0" number="3" from="E0" to="E3"/>
+    <flow id="carflowLMU" type="car" beg="0" end="0" number="12" from="-E3" to="-E0"/>
+    <flow id="carflowLMR" type="car" beg="0" end="0" number="22" from="-E3" to="E1"/>
+
+    <!-- <flow id="carflow" type="car" beg="0" number="235" speedFactor="0.5" route="route_0" departLane="random" probability="0.5" latAlignment="arbitrary"> -->
+
+
+    <!-- <vehicle id="0" type="car" route="route_RMU" depart="0"/>
+    <vehicle id="1" type="car" route="route_RMD" depart="3"/>
+    <vehicle id="2" type="car" route="route_RML" depart="6"/>
+    <vehicle id="3" type="car" route="route_RMU" depart="9"/>
+    <vehicle id="4" type="car" route="route_RMD" depart="12"/>
+
+    <vehicle id="ev_0" type="ev" route="route_RML" depart="16"/> -->
+
+</routes>
