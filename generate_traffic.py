@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import scipy.stats as st
 from scipy.stats import genextreme, dgamma
 import pandas as pd
-import os
 
 
 def get_best_distribution(data):
