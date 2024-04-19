@@ -1,0 +1,75 @@
+$O;D2
+* From-Time To-Time
+* Factor
+1.00
+* some
+* additional
+* comments
+		taz_0 	taz_1 	3500.00
+		taz_0 	taz_2 	3500.00
+		taz_0 	taz_3 	3500.00
+		taz_0 	taz_4 	3500.00
+		taz_0 	taz_5 	3500.00
+		taz_0 	taz_6 	3500.00
+		taz_0 	taz_7 	3500.00
+		taz_0 	taz_9 	3500.00
+
+		taz_1 	taz_0 	3500.00
+		taz_1 	taz_2 	3500.00
+		taz_1 	taz_3 	3500.00
+		taz_1 	taz_4 	3500.00
+		taz_1 	taz_5 	3500.00
+		taz_1 	taz_6 	3500.00
+		taz_1 	taz_7 	3500.00
+		taz_1 	taz_9 	3500.00
+
+		taz_2 	taz_0 	3500.00
+		taz_2 	taz_1 	3500.00
+		taz_2 	taz_3 	3500.00
+		taz_2 	taz_4 	3500.00
+		taz_2 	taz_5 	3500.00
+		taz_2 	taz_6 	3500.00
+		taz_2 	taz_7 	3500.00
+		taz_2 	taz_9 	3500.00
+
+		taz_3 	taz_0 	3500.00
+		taz_3 	taz_1 	3500.00
+		taz_3 	taz_2 	3500.00
+		taz_3 	taz_4 	3500.00
+		taz_3 	taz_5 	3500.00
+		taz_3 	taz_6 	3500.00
+		taz_3 	taz_7 	3500.00
+		taz_3 	taz_9 	3500.00
+
+		taz_4 	taz_0 	3500.00
+		taz_4 	taz_1 	3500.00
+		taz_4 	taz_2 	3500.00
+		taz_4 	taz_3 	3500.00
+
+		taz_5 	taz_0 	3500.00
+		taz_5 	taz_1 	3500.00
+		taz_5 	taz_2 	3500.00
+		taz_5 	taz_3 	3500.00
+		taz_5 	taz_4 	3500.00
+		taz_5 	taz_6 	3500.00
+		taz_5 	taz_7 	3500.00
+
+		taz_6 	taz_0 	3500.00
+		taz_6 	taz_1 	3500.00
+		taz_6 	taz_2 	3500.00
+		taz_6 	taz_3 	3500.00
+		taz_6 	taz_4 	3500.00
+		taz_6 	taz_5 	3500.00
+		taz_6 	taz_9 	3500.00
+
+		taz_7 	taz_0 	3500.00
+		taz_7 	taz_1 	3500.00
+		taz_7 	taz_2 	3500.00
+		taz_7 	taz_3 	3500.00
+		taz_7 	taz_5 	3500.00
+
+		taz_9 	taz_0 	3500.00
+		taz_9 	taz_1 	3500.00
+		taz_9 	taz_2 	3500.00
+		taz_9 	taz_3 	3500.00
+		taz_9 	taz_6 	3500.00

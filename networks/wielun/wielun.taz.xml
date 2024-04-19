@@ -16,20 +16,16 @@
         <tazSink id="1078784920" weight="0.20"/>
         <tazSource id="549008062" weight="0.20"/>
         <tazSource id="249826562" weight="1.00"/>
-        <tazSink id="249826562" weight="1.00"/>
-        <tazSource id="-249826562" weight="1.00"/>
         <tazSink id="-249826562" weight="1.00"/>
     </taz>
     <taz id="taz_2" shape="1577.19,1573.48 1579.59,1523.01 2333.85,1267.58 2887.95,1402.29 2690.16,2380.93 1546.60,2207.76 1578.52,1571.90 1577.19,1573.48" fill="1" color="magenta">
         <tazSource id="-1202362037" weight="1.00"/>
-        <tazSink id="-1202362037" weight="1.00"/>
         <tazSource id="-288875956" weight="1.00"/>
         <tazSink id="-288875956" weight="1.00"/>
         <tazSource id="1062682404" weight="1.00"/>
         <tazSink id="1062682404" weight="1.00"/>
         <tazSource id="1134433961" weight="1.00"/>
         <tazSink id="1134433961" weight="1.00"/>
-        <tazSource id="1202362037" weight="1.00"/>
         <tazSink id="1202362037" weight="1.00"/>
         <tazSource id="194296246" weight="1.00"/>
         <tazSink id="194296246" weight="1.00"/>
@@ -43,8 +39,6 @@
         <tazSink id="962307427" weight="1.00"/>
         <tazSource id="962307428" weight="1.00"/>
         <tazSink id="962307428" weight="1.00"/>
-        <tazSource id="974006864" weight="1.00"/>
-        <tazSink id="974006864" weight="1.00"/>
         <tazSource id="974006868#2" weight="1.00"/>
         <tazSink id="974006868#2" weight="1.00"/>
     </taz>
@@ -77,12 +71,10 @@
         <tazSink id="549008070" weight="1.00"/>
     </taz>
     <taz id="taz_4" shape="1303.60,1533.50 -176.48,1600.16 -186.61,508.99 1281.00,1076.49 1305.76,1536.06 1303.60,1533.50" fill="1" color="0,128,0">
-        <tazSource id="-1152230290" weight="1.00"/>
         <tazSink id="-1152230290" weight="1.00"/>
         <tazSource id="-1189727142" weight="1.00"/>
         <tazSink id="-1189727142" weight="1.00"/>
         <tazSource id="42373465" weight="1.00"/>
-        <tazSink id="42373465" weight="1.00"/>
         <tazSource id="439667057" weight="1.00"/>
         <tazSink id="439667057" weight="1.00"/>
     </taz>
@@ -90,19 +82,15 @@
         <tazSource id="-42340642#1" weight="0.20"/>
         <tazSink id="42340642#0" weight="0.20"/>
         <tazSource id="-42340647" weight="1.00"/>
-        <tazSink id="-42340647" weight="1.00"/>
-        <tazSource id="42340647" weight="1.00"/>
         <tazSink id="42340647" weight="1.00"/>
     </taz>
     <taz id="taz_6" shape="2070.89,727.48 2401.94,646.33 3042.36,-286.59 1988.49,-280.37 2069.40,725.78 2070.89,727.48" fill="1" color="yellow">
         <tazSource id="-319023527" weight="0.20"/>
         <tazSink id="-319023527" weight="0.20"/>
         <tazSource id="319023527" weight="0.20"/>
-        <tazSink id="319023527" weight="0.20"/>
-        <tazSource id="-42340628#0" weight="1.00"/>
+        <tazSink id="319023527" weight="0.20"/>/>
         <tazSink id="-42340628#0" weight="1.00"/>
         <tazSource id="42340628#0" weight="1.00"/>
-        <tazSink id="42340628#0" weight="1.00"/>
     </taz>
     <taz id="taz_7" shape="2310.36,669.46 2324.91,734.17 3481.50,425.94 3042.25,-288.20 2401.99,646.32 2310.05,669.76 2310.36,669.46" fill="1" color="255,99,0">
         <tazSource id="-249487869" weight="0.20"/>
@@ -110,8 +98,6 @@
         <tazSource id="42340613#0" weight="0.20"/>
         <tazSink id="42340613#0" weight="0.20"/>
         <tazSource id="-792723120" weight="1.00"/>
-        <tazSink id="-792723120" weight="1.00"/>
-        <tazSource id="792723120" weight="1.00"/>
         <tazSink id="792723120" weight="1.00"/>
     </taz>
     <taz id="taz_8" shape="1892.64,853.15 1871.27,813.13 2071.40,728.66 2310.29,669.29 2324.58,734.61 2089.66,797.13 1892.31,853.47 1892.64,853.15" fill="1" color="131,0,255">
@@ -139,7 +125,6 @@
     <taz id="taz_9" shape="2209.92,1309.19 2332.83,1267.57 2889.31,1402.10 3154.73,1456.04 3482.01,425.43 2088.59,797.88 2210.25,1309.45 2209.92,1309.19" fill="1" color="93,103,118">
         <tazSource id="-39122228" weight="1.00"/>
         <tazSink id="-39122228" weight="1.00"/>
-        <tazSource id="-42340627" weight="1.00"/>
         <tazSink id="-42340627" weight="1.00"/>
         <tazSource id="-974646436" weight="1.00"/>
         <tazSink id="-974646436" weight="1.00"/>
@@ -156,7 +141,6 @@
         <tazSource id="42340609" weight="1.00"/>
         <tazSink id="42340609" weight="1.00"/>
         <tazSource id="42340627" weight="1.00"/>
-        <tazSink id="42340627" weight="1.00"/>
         <tazSource id="769716780" weight="1.00"/>
         <tazSink id="769716780" weight="1.00"/>
         <tazSource id="769716782" weight="1.00"/>

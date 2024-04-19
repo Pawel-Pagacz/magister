@@ -1,0 +1,15 @@
+<configuration>
+    <input>
+        <net-file value="wielun.net.xml"/>
+        <route-files value="wielun.odtrips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="wielun.odtrips.rou.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value = "never">
+        <no-step-log value = "true">
+    </report>
+</configuration>

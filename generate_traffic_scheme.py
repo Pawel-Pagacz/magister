@@ -153,16 +153,21 @@ def read_data(filename):
     return data
 
 
-def generate_hourly_traffic(output_file, data, comaprision_data):
-    daily_data = sum(comaprision_data)
-    hours_proportion = [x / daily_data for x in comaprision_data]
-
-    for column in data.columns[1:]:
-        data[column] = data[column].apply(
-            lambda x: [int(np.round(x * proportion)) for proportion in hours_proportion]
-        )
-
-    data.to_csv(output_file, index=False)
+def generate_hourly_schedule(
+    output_file, warsaw_data_to_centr, warsaw_data_from_centr, comaprision_data
+):
+    full_traffic = [x + y for x, y in zip(warsaw_data_to_centr, warsaw_data_from_centr)]
+    hours_proportion = [round(x * 100 / sum(full_traffic), 2) for x in comaprision_data]
+    hours_proportion[-1] += 50 - sum(hours_proportion)
+    hours_proportion[-1] = round(hours_proportion[-1], 2)
+    print((hours_proportion))
+    print(sum(hours_proportion))
+    with open(output_file, "w") as file:
+        for i, proportion in enumerate(hours_proportion):
+            if i == len(hours_proportion) - 1:
+                file.write(f"{proportion}")
+            else:
+                file.write(f"{proportion},")
 
 
 def main():
@@ -218,13 +223,16 @@ def main():
         64211,
         27356,
     ]
-    data = read_data("networks/wielun/daily_traffic.csv")
-    generate_hourly_traffic(
-        "networks/wielun/hourly_traffic_to_centr.csv", data.copy(), warsaw_data_to_centr
+    generate_hourly_schedule(
+        "networks/wielun/hourly_traffic_to_centr.txt",
+        warsaw_data_to_centr,
+        warsaw_data_from_centr,
+        warsaw_data_to_centr,
     )
-    generate_hourly_traffic(
-        "networks/wielun/hourly_traffic_from_centr.csv",
-        data.copy(),
+    generate_hourly_schedule(
+        "networks/wielun/hourly_traffic_from_centr.txt",
+        warsaw_data_to_centr,
+        warsaw_data_from_centr,
         warsaw_data_from_centr,
     )
 
