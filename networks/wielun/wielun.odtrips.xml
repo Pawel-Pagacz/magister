@@ -23,6 +23,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="trailer" vClass="trailer"/>
     <trip id="T5" depart="55.65" from="-319023546#1" to="42340647" type="trailer" fromTaz="taz_0" toTaz="taz_5" departLane="free" departSpeed="max"/>
     <trip id="T7" depart="401.49" from="-319023546#1" to="319023527" type="trailer" fromTaz="taz_0" toTaz="taz_6" departLane="free" departSpeed="max"/>
     <trip id="T28" depart="423.68" from="-42340647" to="1078784920" type="trailer" fromTaz="taz_5" toTaz="taz_1" departLane="free" departSpeed="max"/>
