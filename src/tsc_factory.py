@@ -1,7 +1,7 @@
-from src.trafficsignal.uniformcycletsc import UniformCycleTSC
-from src.trafficsignal.websterstsc import WebstersTSC
-from src.trafficsignal.maxpressuretsc import MaxPressureTSC
-from src.trafficsignal.sotltsc import SOTLTSC
+from src.trafficsignalcontrollers.uniformcycletsc import UniformCycleTSC
+from src.trafficsignalcontrollers.websterstsc import WebstersTSC
+from src.trafficsignalcontrollers.maxpressuretsc import MaxPressureTSC
+from src.trafficsignalcontrollers.sotltsc import SOTLTSC
 
 
 def tsc_factory(

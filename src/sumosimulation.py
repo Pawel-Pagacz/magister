@@ -142,23 +142,6 @@ class SumoSim:
                     )
         return lane_vehicles
 
-    def sim_stats(self):
-        tt = self.get_travel_times()
-        if len(tt) > 0:
-            # print( '----------\ntravel time (mean, std) ('+str(np.mean(tt))+', '+str(np.std(tt))+')\n' )
-            return [str(int(np.mean(tt))), str(int(np.std(tt)))]
-        else:
-            return [str(int(0.0)), str(int(0.0))]
-
-    def get_travel_times(self):
-        return [self.v_travel_times[v] for v in self.v_travel_times]
-
-    def get_tsc_metrics(self):
-        tsc_metrics = {}
-        for tsc in self.tsc:
-            tsc_metrics[tsc] = self.tsc[tsc].get_traffic_metrics_history()
-        return tsc_metrics
-
     def close(self):
         # self.conn.close()
         self.conn.close()
