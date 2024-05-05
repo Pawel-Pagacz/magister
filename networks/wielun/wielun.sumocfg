@@ -12,6 +12,12 @@
         <additional-files value="wielun.poly.xml"/>
     </input>
 
+    <output>
+        <queue-output value="simulation.queue.xml"/>
+        <summary-output value="simulation.summary.xml"/>
+        <emission-output value="simulation.emission.xml"/>
+    </output>
+
     <processing>
         <ignore-route-errors value="true"/>
     </processing>
@@ -28,7 +34,10 @@
     </report>
 
     <gui_only>
-        <gui-settings-file value="wielun.view.xml"/>
+        <viewsettings>
+            <scheme name="real world"/>
+            <delay value="20"/>
+        </viewsettings>
     </gui_only>
 
 </configuration>
