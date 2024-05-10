@@ -1,6 +1,0 @@
-<additionals>
-
-    <laneData id="E3_0_check" file="edge_FD_output.xml" freq = "5" begin = "0" end = "500"
-                edges = "-E3"/>
-
-</additionals>
