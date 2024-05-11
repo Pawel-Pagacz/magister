@@ -1,0 +1,29 @@
+$O;D2
+* From-Time To-Time
+0.00 24000.00
+* Factor
+1
+* some
+* additional
+* comments
+taz_8 taz_3 10
+taz_8 taz_5 4
+taz_8 taz_6 6
+taz_8 taz_7 5
+taz_6 taz_8 14
+taz_5 taz_3 11
+taz_3 taz_5 3
+taz_3 taz_8 7
+taz_3 taz_1 3
+taz_3 taz_0 6
+taz_3 taz_2 4
+taz_0 taz_1 4
+taz_0 taz_3 12
+taz_0 taz_2 6
+taz_7 taz_8 19
+taz_1 taz_0 7
+taz_1 taz_3 8
+taz_1 taz_2 4
+taz_2 taz_3 15
+taz_2 taz_1 5
+taz_2 taz_0 12

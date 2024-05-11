@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2024-05-11 13:35:24 by Eclipse SUMO od2trips Version 1.19.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <taz-files value="wielun.taz.xml"/>
+        <od-matrix-files value="wielun_moto.od"/>
+    </input>
+
+    <output>
+        <output-file value="wielun_moto.odtrips.xml"/>
+    </output>
+
+    <processing>
+        <vtype value="motorcycle"/>
+        <prefix value="M"/>
+        <timeline value="0.7,0.46,0.36,0.42,0.76,2.5,5.54,7.54,7.38,6.66,6.04,5.9,5.9,5.88,6.0,6.16,6.02,5.78,5.62,4.88,3.94,2.96,2.14,0.46"/>
+        <timeline.day-in-hours value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="motorcycle" vClass="motorcycle"/>
+    <trip id="M1" depart="654.29" from="288875956" to="-249826562" type="motorcycle" fromTaz="taz_2" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M0" depart="1006.16" from="-319023546#1" to="-437406387#2" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M2" depart="1164.16" from="-42340647" to="42340648" type="motorcycle" fromTaz="taz_5" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M4" depart="4274.42" from="42340628#0" to="319023535#0" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M3" depart="5749.52" from="249826562" to="-549008000" type="motorcycle" fromTaz="taz_1" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M6" depart="8042.52" from="-792723120" to="-319023542#1" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M5" depart="9439.54" from="549118404" to="549008083#0" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M9" depart="14558.69" from="549008043#0" to="549008083#0" type="motorcycle" fromTaz="taz_3" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M8" depart="15096.11" from="194296246" to="-549008070" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M7" depart="16569.75" from="249826562" to="319023546#1" type="motorcycle" fromTaz="taz_1" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M10" depart="18494.74" from="-319023546#1" to="962307428" type="motorcycle" fromTaz="taz_0" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M12" depart="19822.07" from="549008070" to="-288875956" type="motorcycle" fromTaz="taz_3" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M11" depart="20092.86" from="249826562" to="288875956" type="motorcycle" fromTaz="taz_1" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M14" depart="21721.78" from="549118422" to="-549008048" type="motorcycle" fromTaz="taz_8" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M15" depart="22382.98" from="-549118422" to="42340647" type="motorcycle" fromTaz="taz_8" toTaz="taz_5" departLane="free" departSpeed="max"/>
+    <trip id="M16" depart="22784.71" from="-319023542#1" to="-42340628#0" type="motorcycle" fromTaz="taz_8" toTaz="taz_6" departLane="free" departSpeed="max"/>
+    <trip id="M13" depart="23584.70" from="-549008000" to="319023542#0" type="motorcycle" fromTaz="taz_3" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M19" depart="25213.56" from="-42340642#1" to="42340648" type="motorcycle" fromTaz="taz_5" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M18" depart="25647.19" from="194296246" to="549008046#0" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M17" depart="26254.94" from="-319023546#1" to="549008043#0" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M22" depart="26355.39" from="42340641#0" to="792723120" type="motorcycle" fromTaz="taz_8" toTaz="taz_7" departLane="free" departSpeed="max"/>
+    <trip id="M21" depart="27737.50" from="42340613#0" to="-319023535#2" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M20" depart="28527.45" from="42340628#0" to="549118422" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M25" depart="29168.78" from="-792723120" to="-319023535#2" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M24" depart="29420.30" from="1134433961" to="319023546#1" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M23" depart="30029.13" from="549008062" to="549008066" type="motorcycle" fromTaz="taz_1" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M26" depart="31879.57" from="319023535#1" to="-549008046#2" type="motorcycle" fromTaz="taz_8" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M28" depart="33669.21" from="288875956" to="319023546#1" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M30" depart="33831.43" from="549008066" to="42340647" type="motorcycle" fromTaz="taz_3" toTaz="taz_5" departLane="free" departSpeed="max"/>
+    <trip id="M29" depart="34310.64" from="709217977" to="549008066" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M32" depart="35765.36" from="-792723120" to="549118422" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M33" depart="35835.74" from="-42340641#1" to="-319023527" type="motorcycle" fromTaz="taz_8" toTaz="taz_6" departLane="free" departSpeed="max"/>
+    <trip id="M27" depart="35855.98" from="-549008083#0" to="1078784920" type="motorcycle" fromTaz="taz_0" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M31" depart="35920.31" from="42340628#0" to="319023542#0" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M38" depart="36627.48" from="-549008046#2" to="-249826562" type="motorcycle" fromTaz="taz_3" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M41" depart="36809.33" from="549118422" to="549008070" type="motorcycle" fromTaz="taz_8" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M34" depart="36859.60" from="-319023546#1" to="1134433961" type="motorcycle" fromTaz="taz_0" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M36" depart="37287.14" from="194296246" to="549008046#0" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M35" depart="37412.16" from="-319023546#1" to="438404111" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M39" depart="38416.61" from="-42340647" to="-549008000" type="motorcycle" fromTaz="taz_5" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M40" depart="39015.75" from="42340613#0" to="-549118422" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M37" depart="39567.26" from="1152230292" to="319023546#1" type="motorcycle" fromTaz="taz_3" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M44" depart="40172.23" from="549008046#0" to="319023535#0" type="motorcycle" fromTaz="taz_3" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M42" depart="40572.40" from="249826562" to="319023546#1" type="motorcycle" fromTaz="taz_1" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M43" depart="42355.62" from="-288875956" to="319023546#1" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M47" depart="44638.84" from="962307427" to="1078784920" type="motorcycle" fromTaz="taz_2" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M46" depart="45781.89" from="249826562" to="1062682404" type="motorcycle" fromTaz="taz_1" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M48" depart="46435.66" from="42340628#0" to="549118422" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M45" depart="46671.96" from="549008083#0" to="-549008000" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M55" depart="47241.97" from="-792723120" to="319023535#1" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M49" depart="47636.65" from="249826562" to="319023546#1" type="motorcycle" fromTaz="taz_1" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M50" depart="47861.48" from="249826562" to="-549008070" type="motorcycle" fromTaz="taz_1" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M51" depart="48159.91" from="962307428" to="549008066" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M57" depart="48172.82" from="319023535#1" to="549008066" type="motorcycle" fromTaz="taz_8" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M54" depart="48420.66" from="42340628#0" to="319023535#1" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M52" depart="49384.32" from="1152230292" to="319023535#0" type="motorcycle" fromTaz="taz_3" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M56" depart="49409.20" from="-792723120" to="42340641#0" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M53" depart="49978.95" from="-42340647" to="-549008043#2" type="motorcycle" fromTaz="taz_5" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M61" depart="50798.44" from="-549008000" to="42340647" type="motorcycle" fromTaz="taz_3" toTaz="taz_5" departLane="free" departSpeed="max"/>
+    <trip id="M62" depart="52009.33" from="319023542#0" to="42340647" type="motorcycle" fromTaz="taz_8" toTaz="taz_5" departLane="free" departSpeed="max"/>
+    <trip id="M59" depart="52546.28" from="1062682404" to="549008083#0" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M63" depart="52842.46" from="319023542#0" to="-42340628#0" type="motorcycle" fromTaz="taz_8" toTaz="taz_6" departLane="free" departSpeed="max"/>
+    <trip id="M64" depart="52993.71" from="-319023535#2" to="792723120" type="motorcycle" fromTaz="taz_8" toTaz="taz_7" departLane="free" departSpeed="max"/>
+    <trip id="M60" depart="53246.98" from="42340648" to="962307428" type="motorcycle" fromTaz="taz_3" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M58" depart="53512.98" from="549008083#0" to="962307427" type="motorcycle" fromTaz="taz_0" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M69" depart="54676.92" from="42340628#0" to="-319023535#2" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M68" depart="54913.53" from="-42340647" to="-549008043#2" type="motorcycle" fromTaz="taz_5" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M65" depart="55456.94" from="-319023546#1" to="-249826562" type="motorcycle" fromTaz="taz_0" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M66" depart="56755.44" from="549008083#0" to="-549008043#2" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M67" depart="56929.72" from="962307427" to="-549008043#2" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M70" depart="57297.40" from="-792723120" to="-549118422" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M73" depart="58666.40" from="-792723120" to="549118422" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M71" depart="58992.76" from="249826562" to="1152230292" type="motorcycle" fromTaz="taz_1" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M72" depart="59428.28" from="962307427" to="1152230292" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M76" depart="61662.52" from="549118404" to="-249826562" type="motorcycle" fromTaz="taz_2" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M77" depart="62493.18" from="1062682404" to="-549008070" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M78" depart="63799.27" from="549008046#0" to="319023546#1" type="motorcycle" fromTaz="taz_3" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M74" depart="64308.96" from="549008083#0" to="-549008070" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M79" depart="64494.66" from="42340628#0" to="-42340641#1" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M75" depart="64626.28" from="-288875956" to="549008083#0" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M83" depart="65229.67" from="-549118422" to="-42340628#0" type="motorcycle" fromTaz="taz_8" toTaz="taz_6" departLane="free" departSpeed="max"/>
+    <trip id="M81" depart="65400.40" from="-42340647" to="42340648" type="motorcycle" fromTaz="taz_5" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M82" depart="67151.80" from="-319023535#0" to="-549008046#2" type="motorcycle" fromTaz="taz_8" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M80" depart="67686.10" from="1152230292" to="-249826562" type="motorcycle" fromTaz="taz_3" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M91" depart="68501.43" from="319023542#0" to="792723120" type="motorcycle" fromTaz="taz_8" toTaz="taz_7" departLane="free" departSpeed="max"/>
+    <trip id="M86" depart="69337.38" from="-288875956" to="319023546#1" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M84" depart="70052.57" from="549008083#0" to="-249826562" type="motorcycle" fromTaz="taz_0" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="M85" depart="70797.53" from="249826562" to="319023546#1" type="motorcycle" fromTaz="taz_1" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M88" depart="71469.64" from="549008070" to="319023535#0" type="motorcycle" fromTaz="taz_3" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M89" depart="71619.03" from="319023527" to="319023535#0" type="motorcycle" fromTaz="taz_6" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M90" depart="71785.87" from="-792723120" to="319023535#1" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M87" depart="71963.04" from="-549008046#2" to="319023546#1" type="motorcycle" fromTaz="taz_3" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M94" depart="72735.11" from="-288875956" to="1152230292" type="motorcycle" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M96" depart="73236.36" from="-792723120" to="-319023535#0" type="motorcycle" fromTaz="taz_7" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M93" depart="73299.24" from="249826562" to="-549008070" type="motorcycle" fromTaz="taz_1" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M92" depart="74769.21" from="-319023546#1" to="549008046#0" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M95" depart="74945.58" from="549008070" to="288875956" type="motorcycle" fromTaz="taz_3" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M99" depart="76141.29" from="319023542#0" to="549008066" type="motorcycle" fromTaz="taz_8" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M98" depart="76289.37" from="-42340647" to="-437406387#2" type="motorcycle" fromTaz="taz_5" toTaz="taz_3" departLane="free" departSpeed="max"/>
+    <trip id="M97" depart="77412.21" from="-319023546#1" to="1134433961" type="motorcycle" fromTaz="taz_0" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M100" depart="78403.80" from="319023535#0" to="42340647" type="motorcycle" fromTaz="taz_8" toTaz="taz_5" departLane="free" departSpeed="max"/>
+    <trip id="M101" depart="82462.76" from="-549008000" to="319023542#0" type="motorcycle" fromTaz="taz_3" toTaz="taz_8" departLane="free" departSpeed="max"/>
+    <trip id="M103" depart="83002.95" from="249826562" to="549118404" type="motorcycle" fromTaz="taz_1" toTaz="taz_2" departLane="free" departSpeed="max"/>
+    <trip id="M104" depart="84432.64" from="1062682404" to="319023546#1" type="motorcycle" fromTaz="taz_2" toTaz="taz_0" departLane="free" departSpeed="max"/>
+    <trip id="M102" depart="85003.98" from="-319023546#1" to="549008046#0" type="motorcycle" fromTaz="taz_0" toTaz="taz_3" departLane="free" departSpeed="max"/>
+</routes>

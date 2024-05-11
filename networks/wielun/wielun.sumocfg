@@ -8,14 +8,14 @@
     <input>
         <net-file value="wielun.net.xml"/>
         <!-- <route-files value="wielun.bus.trips.xml,wielun.motorcycle.trips.xml,wielun.passenger.trips.xml,wielun.truck.trips.xml"/> -->
-        <route-files value="wielun.odtrips.xml"/>
+        <route-files value=" odtrips/wielun_bus.odtrips.xml, odtrips/wielun_moto.odtrips.xml, odtrips/wielun_passenger.odtrips.xml, odtrips/wielun_tir.odtrips.xml"/>
         <additional-files value="wielun.poly.xml"/>
     </input>
 
     <output>
-        <queue-output value="simulation.queue.xml"/>
+        <!-- <queue-output value="simulation.queue.xml"/>
         <summary-output value="simulation.summary.xml"/>
-        <emission-output value="simulation.emission.xml"/>
+        <emission-output value="simulation.emission.xml"/> -->
     </output>
 
     <processing>
