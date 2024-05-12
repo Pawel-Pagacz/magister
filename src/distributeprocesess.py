@@ -7,7 +7,7 @@ from src.sumosimulation import SumoSim
 
 
 def get_simulation(simulation):
-    # get simulation
+
     if simulation == "wielun":
         net_path = "networks/wielun/wielun.net.xml"
         cfg_path = "networks/wielun/wielun.sumocfg"
@@ -38,14 +38,7 @@ class DistributeProcesses:
         if args.simulation:
             args.cfg_path, args.net_path = get_simulation(args.sim)
 
-        net = Network(args.net_path)
-        network = net.get_net_data()
-        tsc_ids = network["inter"].keys()
-        print(tsc_ids)
-
-        sim = SumoSim(
-            args.cfg_path, args.steps, args.algorithm, True, network, args, -1
-        )
+        sim = SumoSim(args.cfg_path, args.steps, args.algorithm, True, args, -1)
         sim.gen_sim()
         sim.run()
-        sim.get_average_waiting_time()
+        print("XXX", sim.get_average_waiting_time())
