@@ -10,7 +10,7 @@ else:
 
 
 class TrafficMetrics:
-    def __init__(self, _id, incoming_lanes, netdata, metric_args, mode):
+    def __init__(self, _id, incoming_lanes, netdata, metric_args):
         self.metrics = {}
         if "delay" in metric_args:
             lane_lengths = {
@@ -20,11 +20,11 @@ class TrafficMetrics:
                 lane: netdata["lane"][lane]["speed"] for lane in incoming_lanes
             }
             self.metrics["delay"] = DelayMetric(
-                _id, incoming_lanes, mode, lane_lengths, lane_speeds
+                _id, incoming_lanes, lane_lengths, lane_speeds
             )
 
         if "queue" in metric_args:
-            self.metrics["queue"] = QueueMetric(_id, incoming_lanes, mode)
+            self.metrics["queue"] = QueueMetric(_id, incoming_lanes)
 
     def update(self, v_data):
         for m in self.metrics:
@@ -38,11 +38,10 @@ class TrafficMetrics:
 
 
 class TrafficMetric:
-    def __init__(self, _id, incoming_lanes, mode):
+    def __init__(self, _id, incoming_lanes):
         self.id = _id
         self.incoming_lanes = incoming_lanes
         self.history = []
-        self.mode = mode
 
     def get_metric(self):
         pass
@@ -55,8 +54,8 @@ class TrafficMetric:
 
 
 class DelayMetric(TrafficMetric):
-    def __init__(self, _id, incoming_lanes, mode, lane_lengths, lane_speeds):
-        super().__init__(_id, incoming_lanes, mode)
+    def __init__(self, _id, incoming_lanes, lane_lengths, lane_speeds):
+        super().__init__(_id, incoming_lanes)
         self.lane_travel_times = {
             lane: lane_lengths[lane] / float(lane_speeds[lane])
             for lane in incoming_lanes
@@ -71,20 +70,16 @@ class DelayMetric(TrafficMetric):
         ]
 
     def get_metric(self):
-        # calculate delay of vehicles on incoming lanes
         delay = 0
         for v in self.old_v:
-            # calculate individual vehicle delay
             v_delay = self.get_v_delay(v)
             if v_delay > 0:
                 delay += v_delay
-
         return delay
 
     def update(self, v_data):
         new_v = set()
 
-        # record start time and lane of new_vehicles
         for lane in self.incoming_lanes:
             for v in v_data[lane]:
                 if v not in self.old_v:
@@ -92,11 +87,7 @@ class DelayMetric(TrafficMetric):
                     self.v_info[v]["t"] = self.t
                     self.v_info[v]["lane"] = lane
             new_v.update(set(v_data[lane].keys()))
-
-        if self.mode == "test":
             self.history.append(self.get_metric())
-
-        # remove vehicles that have left incoming lanes
         remove_vehicles = self.old_v - new_v
         delay = 0
         for v in remove_vehicles:
@@ -107,8 +98,8 @@ class DelayMetric(TrafficMetric):
 
 
 class QueueMetric(TrafficMetric):
-    def __init__(self, _id, incoming_lanes, mode):
-        super().__init__(_id, incoming_lanes, mode)
+    def __init__(self, _id, incoming_lanes):
+        super().__init__(_id, incoming_lanes)
         self.stop_speed = 0.3
         self.lane_queues = {lane: 0 for lane in self.incoming_lanes}
 
@@ -122,7 +113,5 @@ class QueueMetric(TrafficMetric):
             for v in v_data[lane]:
                 if v_data[lane][v][traci.constants.VAR_SPEED] < self.stop_speed:
                     lane_queues[lane] += 1
-
         self.lane_queues = lane_queues
-        if self.mode == "test":
-            self.history.append(self.get_metric())
+        self.history.append(self.get_metric())

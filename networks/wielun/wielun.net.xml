@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-05-11 13:22:59 by Eclipse SUMO netedit Version 1.19.0
+<!-- generated on 2024-05-12 20:36:48 by Eclipse SUMO netedit Version 1.19.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\! Projekty\magister\networks\wielun\wielun.net.xml"/>
+        <sumo-net-file value="D:\!! AA\magister\networks\wielun\wielun.net.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\! Projekty\magister\networks\wielun\wielun.net.xml"/>
+        <output-file value="D:\!! AA\magister\networks\wielun\wielun.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
@@ -2130,37 +2130,41 @@
         </lane>
     </edge>
 
-    <tlLogic id="419734825" type="static" programID="0" offset="0">
-        <phase duration="25" state="GGrrrrrr"/>
+    <tlLogic id="419734825" type="actuated" programID="0" offset="0">
+        <phase duration="25" state="GGrrrrrr" minDur="5" maxDur="500"/>
         <phase duration="3"  state="yyrrrrrr"/>
-        <phase duration="25" state="rrrrrrGG"/>
+        <phase duration="25" state="rrrrrrGG" minDur="5" maxDur="500"/>
         <phase duration="3"  state="rrrrrryy"/>
-        <phase duration="25" state="rrrGGrrr"/>
+        <phase duration="25" state="rrrGGrrr" minDur="5" maxDur="500"/>
         <phase duration="3"  state="rrryyrrr"/>
+        <param key="show-detectors" value="true"/>
     </tlLogic>
-    <tlLogic id="GS_429723386" type="static" programID="0" offset="0">
-        <phase duration="30" state="GrrrrrGGr"/>
+    <tlLogic id="429723386" type="actuated" programID="0" offset="0">
+        <phase duration="30" state="GrrrrrGGr" minDur="5" maxDur="500"/>
         <phase duration="3"  state="yrrrrryyr"/>
-        <phase duration="10" state="GGrrrrrrr"/>
+        <phase duration="10" state="GGrrrrrrr" minDur="5" maxDur="500"/>
         <phase duration="3"  state="yyrrrrrrr"/>
-        <phase duration="20" state="rrrGGrrrr"/>
+        <phase duration="20" state="rrrGGrrrr" minDur="5" maxDur="500"/>
         <phase duration="3"  state="rrryyrrrr"/>
+        <param key="show-detectors" value="true"/>
     </tlLogic>
-    <tlLogic id="cluster_2556814094_429774589" type="static" programID="0" offset="0">
-        <phase duration="41" state="GGgrrrGGgrrr"/>
+    <tlLogic id="cluster_2556814094_429774589" type="actuated" programID="0" offset="0">
+        <phase duration="41" state="GGgrrrGGgrrr" minDur="5" maxDur="500"/>
         <phase duration="3"  state="yyyrrryyyrrr"/>
-        <phase duration="41" state="rrrGGgrrrGGg"/>
+        <phase duration="41" state="rrrGGgrrrGGg" minDur="5" maxDur="500"/>
         <phase duration="3"  state="rrryyyrrryyy"/>
+        <param key="show-detectors" value="true"/>
     </tlLogic>
-    <tlLogic id="cluster_259602058_2924318333" type="static" programID="0" offset="0">
-        <phase duration="20" state="rrrGGGrrrrrr"/>
+    <tlLogic id="cluster_259602058_2924318333" type="actuated" programID="0" offset="0">
+        <phase duration="20" state="rrrGGGrrrrrr" minDur="5" maxDur="500"/>
         <phase duration="5"  state="rrryyyrrrrrr"/>
-        <phase duration="15" state="GGGrrrrrrrrr"/>
+        <phase duration="15" state="GGGrrrrrrrrr" minDur="5" maxDur="500"/>
         <phase duration="5"  state="yyyrrrrrrrrr"/>
-        <phase duration="20" state="grrrrrrrrrGG"/>
+        <phase duration="20" state="grrrrrrrrrGG" minDur="5" maxDur="500"/>
         <phase duration="5"  state="rrrrrrrrrryy"/>
-        <phase duration="20" state="rrrrrrGGGgrr"/>
+        <phase duration="20" state="rrrrrrGGGgrr" minDur="5" maxDur="500"/>
         <phase duration="5"  state="rrrrrryyyrrr"/>
+        <param key="show-detectors" value="true"/>
     </tlLogic>
 
     <junction id="11041822737" type="priority" x="2346.41" y="1115.72" incLanes="777538785_0 1196694190_0" intLanes=":11041822737_0_0 :11041822737_1_0" shape="2346.75,1118.18 2348.89,1115.80 2347.36,1114.07 2347.01,1113.31 2346.77,1112.48 2346.52,1111.47 2346.12,1110.17 2343.12,1111.27 2343.23,1112.01 2343.12,1112.24 2342.90,1112.36 2342.58,1112.38 2342.15,1112.30 2340.32,1115.55 2342.49,1115.75 2343.57,1116.11 2344.64,1116.63 2345.70,1117.32">
@@ -2779,8 +2783,8 @@
     <connection from="-549008039#1" to="-319023535#2" fromLane="0" toLane="0" via=":cluster_2556814094_429774589_0_0" tl="cluster_2556814094_429774589" linkIndex="0" dir="r" state="O"/>
     <connection from="-549008039#1" to="237264805#1" fromLane="0" toLane="0" via=":cluster_2556814094_429774589_1_0" tl="cluster_2556814094_429774589" linkIndex="1" dir="s" state="O"/>
     <connection from="-549008039#1" to="42340613#0" fromLane="0" toLane="0" via=":cluster_2556814094_429774589_2_0" tl="cluster_2556814094_429774589" linkIndex="2" dir="l" state="o"/>
-    <connection from="-549008043#2" to="-437406387#2" fromLane="0" toLane="0" via=":429723386_0_0" tl="GS_429723386" linkIndex="0" dir="s" state="O"/>
-    <connection from="-549008043#2" to="-549008046#2" fromLane="1" toLane="0" via=":429723386_1_0" tl="GS_429723386" linkIndex="1" dir="l" state="o"/>
+    <connection from="-549008043#2" to="-437406387#2" fromLane="0" toLane="0" via=":429723386_0_0" tl="429723386" linkIndex="0" dir="s" state="O"/>
+    <connection from="-549008043#2" to="-549008046#2" fromLane="1" toLane="0" via=":429723386_1_0" tl="429723386" linkIndex="1" dir="l" state="o"/>
     <connection from="-549008046#2" to="-549008048" fromLane="0" toLane="0" via=":5303422430_0_0" dir="s" state="M"/>
     <connection from="-549008048" to="-1189727142" fromLane="0" toLane="0" via=":429723377_3_0" dir="r" state="M"/>
     <connection from="-549008048" to="-1152230290" fromLane="0" toLane="0" via=":429723377_4_0" dir="s" state="M"/>
@@ -2925,8 +2929,8 @@
     <connection from="42373465" to="1152230292" fromLane="0" toLane="0" via=":429723377_6_0" dir="s" state="M"/>
     <connection from="42373465" to="-1189727142" fromLane="0" toLane="0" via=":429723377_7_0" dir="l" state="m"/>
     <connection from="42373465" to="-1152230290" fromLane="0" toLane="0" via=":429723377_8_0" dir="t" state="m"/>
-    <connection from="438404111" to="-549008046#2" fromLane="0" toLane="0" via=":429723386_4_0" tl="GS_429723386" linkIndex="6" dir="r" state="O"/>
-    <connection from="438404111" to="549008043#0" fromLane="0" toLane="0" via=":429723386_5_0" tl="GS_429723386" linkIndex="7" dir="s" state="O"/>
+    <connection from="438404111" to="-549008046#2" fromLane="0" toLane="0" via=":429723386_4_0" tl="429723386" linkIndex="6" dir="r" state="O"/>
+    <connection from="438404111" to="549008043#0" fromLane="0" toLane="0" via=":429723386_5_0" tl="429723386" linkIndex="7" dir="s" state="O"/>
     <connection from="439667057" to="-1152230290" fromLane="0" toLane="0" via=":429723377_0_0" dir="r" state="m"/>
     <connection from="439667057" to="1152230292" fromLane="0" toLane="0" via=":429723377_1_0" dir="l" state="m"/>
     <connection from="439667057" to="-1189727142" fromLane="0" toLane="0" via=":429723377_2_0" dir="t" state="m"/>
@@ -2935,8 +2939,8 @@
     <connection from="549008039#0" to="777538793" fromLane="0" toLane="0" via=":8959416965_0_0" dir="s" state="M"/>
     <connection from="549008039#0" to="-549008039#1" fromLane="0" toLane="0" via=":8959416965_1_0" dir="t" state="m"/>
     <connection from="549008043#0" to="42340648" fromLane="0" toLane="0" via=":2556770626_2_0" dir="s" state="M"/>
-    <connection from="549008046#0" to="549008043#0" fromLane="0" toLane="0" via=":429723386_2_0" tl="GS_429723386" linkIndex="3" dir="r" state="o"/>
-    <connection from="549008046#0" to="-437406387#2" fromLane="1" toLane="0" via=":429723386_3_0" tl="GS_429723386" linkIndex="4" dir="l" state="o"/>
+    <connection from="549008046#0" to="549008043#0" fromLane="0" toLane="0" via=":429723386_2_0" tl="429723386" linkIndex="3" dir="r" state="o"/>
+    <connection from="549008046#0" to="-437406387#2" fromLane="1" toLane="0" via=":429723386_3_0" tl="429723386" linkIndex="4" dir="l" state="o"/>
     <connection from="549008051" to="1263276573" fromLane="0" toLane="0" via=":11737198864_0_0" dir="s" state="M"/>
     <connection from="549008052" to="549008051" fromLane="0" toLane="0" via=":5303422453_0_0" dir="s" state="M"/>
     <connection from="549008055" to="549008052" fromLane="0" toLane="0" via=":5303422454_0_0" dir="s" state="M"/>

@@ -13,8 +13,8 @@
     </input>
 
     <output>
-        <!-- <queue-output value="simulation.queue.xml"/>
-        <summary-output value="simulation.summary.xml"/>
+        <queue-output value="simulation.queue.xml"/>
+        <!-- <summary-output value="simulation.summary.xml"/>
         <emission-output value="simulation.emission.xml"/> -->
     </output>
 

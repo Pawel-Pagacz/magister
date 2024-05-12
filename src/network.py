@@ -119,8 +119,6 @@ class Network:
                 conn.getTLLinkIndex(): str(conn.getDirection())
                 for conn in node.getConnections()
             }
-
-            # get XY coords
             pos = node.getCoord()
             node_data[node_id]["x"] = pos[0]
             node_data[node_id]["y"] = pos[1]

@@ -13,14 +13,6 @@ def parse_args():
         dest="n",
         help="number of sim procs (parallel simulations) generating experiences, default: os.cpu_count()-1",
     )
-    parser.add_argument(
-        "-l",
-        type=int,
-        default=1,
-        dest="l",
-        help="number of parallel learner procs producing updates, default: 1",
-    )
-
     # sumo parameters
     parser.add_argument(
         "-port",
@@ -33,7 +25,7 @@ def parse_args():
         "-simulation",
         type=str,
         default=None,
-        dest="sim",
+        dest="simulation",
         help="simulation scenario, default: wielun, options:wroclaw, wielun",
     )
     parser.add_argument(
@@ -64,12 +56,21 @@ def parse_args():
         dest="nogui",
         help="disable gui, default: False",
     )
+
     parser.add_argument(
         "-scale",
         type=float,
         default=1.0,
         dest="scale",
         help="vehicle generation scale parameter, higher values generates more vehicles, default: 1.0",
+    )  # Nie wiem czy zadziała
+
+    parser.add_argument(
+        "-offset",
+        type=float,
+        default=0.25,
+        dest="offset",
+        help="max sim offset fraction of total sim length, default: 0.3",
     )
 
     # shared tsc params
@@ -99,15 +100,15 @@ def parse_args():
     parser.add_argument(
         "-nreplay",
         type=int,
-        default=10000,
+        default=100,
         dest="nreplay",
-        help="maximum size of experience replay, default: 10000",
+        help="maximum size of experience replay, default: 100",
     )
     parser.add_argument(
-        "-simlen",
+        "-steps",
         type=int,
-        default=10800,
-        dest="sim_len",
+        default=86400,
+        dest="steps",
         help="length of simulation in seconds/steps",
     )
     return parser.parse_args()

@@ -1,8 +1,8 @@
 import os, sys, copy
-
 import numpy as np
-
 from collections import deque
+import traci
+from src.trafficmetrics import TrafficMetrics
 
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
@@ -10,10 +10,6 @@ if "SUMO_HOME" in os.environ:
     from sumolib import checkBinary
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
-
-import traci
-
-from src.trafficmetrics import TrafficMetrics
 
 
 class TrafficSignalController:
@@ -28,8 +24,6 @@ class TrafficSignalController:
         self.all_red = len((self.green_phases[0])) * "r"
         self.phase = self.all_red
         self.phase_lanes = self.phase_lanes(self.green_phases)
-        # create subscription for this traffic signal junction to gather
-        # vehicle information efficiently
         self.conn.junction.subscribeContext(
             tsc_id,
             traci.constants.CMD_GET_VEHICLE_VARIABLE,
@@ -40,31 +34,21 @@ class TrafficSignalController:
                 traci.constants.VAR_LANE_ID,
             ],
         )
-        # get all incoming lanes to intersection
         self.incoming_lanes = set()
         for p in self.phase_lanes:
             for l in self.phase_lanes[p]:
                 self.incoming_lanes.add(l)
 
         self.incoming_lanes = sorted(list(self.incoming_lanes))
-        # lane capacity is the lane length divided by the average vehicle length+stopped headway
         self.lane_capacity = np.array(
             [
                 float(self.netdata["lane"][lane]["length"]) / 7.5
                 for lane in self.incoming_lanes
             ]
         )
-        # for collecting various traffic metrics at the intersection
-        # can be extended in trafficmetric.py class to collect new metrics
-        if mode == "train":
-            self.metric_args = ["delay"]
-        if mode == "test":
-            self.metric_args = ["queue", "delay"]
         self.trafficmetrics = TrafficMetrics(
             tsc_id, self.incoming_lanes, netdata, self.metric_args, mode
         )
-
-        self.ep_rewards = []
 
     def run(self):
         data = self.get_subscription_data()
