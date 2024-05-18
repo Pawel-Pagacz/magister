@@ -66,60 +66,6 @@ def allocate_traffic(edges_data):
     return traffic_allocation
 
 
-# def merge_edges(traffic_allocation):
-#     merged_traffic_allocation = traffic_allocation.copy()
-#     start_edges = ["G", "E", "H", "C", "B", "F"]
-
-#     for start_edge in start_edges:
-#         visited_edges = set()
-
-#         def merge(start_edge, current_edge):
-#             visited_edges.add(current_edge)
-
-#             if current_edge in traffic_allocation:
-#                 for end_edge, vehicles in traffic_allocation[current_edge].items():
-#                     # print(current_edge, end_edge)
-#                     for end_edge in traffic_allocation[current_edge]:
-#                         visited_edges.add(end_edge)
-#                         print(visited_edges)
-#                     if end_edge in start_edges and end_edge != start_edge:
-#                         print(start_edge, end_edge, current_edge)
-#                         if end_edge in merged_traffic_allocation[start_edge]:
-#                             for vehicle_type, count in vehicles.items():
-#                                 if (
-#                                     end_edge
-#                                     not in merged_traffic_allocation[start_edge]
-#                                 ):
-#                                     merged_traffic_allocation[start_edge][end_edge] = {}
-#                                 merged_traffic_allocation[start_edge][end_edge][
-#                                     vehicle_type
-#                                 ] = (
-#                                     merged_traffic_allocation[start_edge][end_edge].get(
-#                                         vehicle_type, 0
-#                                     )
-#                                     + count
-#                                 )
-#                         else:
-#                             merged_traffic_allocation[start_edge][
-#                                 end_edge
-#                             ] = vehicles.copy()
-#                             for vehicle_type, count in vehicles.items():
-#                                 merged_traffic_allocation[current_edge][end_edge][
-#                                     vehicle_type
-#                                 ] = 0
-#                                 merged_traffic_allocation[start_edge][current_edge][
-#                                     vehicle_type
-#                                 ] -= count
-
-#                     elif end_edge not in visited_edges:
-#                         # If not a start edge and not visited yet, consider it as an intermediate edge
-#                         merge(start_edge, end_edge)
-
-#         merge(start_edge, start_edge)
-
-#     return merged_traffic_allocation
-
-
 def print_traffic_allocation(traffic_allocation):
     for edge, allocation in traffic_allocation.items():
         print(f"Edge: {edge}")

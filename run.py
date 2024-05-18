@@ -1,7 +1,6 @@
 import os, sys, time
 
 from src.argparse import parse_args
-from src.network import Network
 from src.distributeprocesess import DistributeProcesses
 
 

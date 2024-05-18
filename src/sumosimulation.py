@@ -2,6 +2,7 @@ import os, sys, subprocess
 import traci
 import numpy as np
 import optparse
+from src.trafficlightmanager import TrafficLightManager
 
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
@@ -15,11 +16,9 @@ class SumoSim:
     def __init__(self, cfg_path, steps, algorithm, nogui, args, idx):
         self.cfg_path = cfg_path
         self.steps = steps
-        self.sumo_cmd = "sumo-gui" if nogui else "sumo-gui"
+        self.sumo_cmd = "sumo" if nogui else "sumo-gui"
         self.args = args
         self.idx = idx
-        self.total_waiting_time = {}
-        self.emissions_data = {}
 
     def serverless_connect(self):
 
@@ -51,124 +50,33 @@ class SumoSim:
 
     def sim_step(self):
         self.conn.simulationStep()
-        if self.steps % 5000 == 0:
+        if self.steps % 100 == 0:
             print(
                 "Step: ",
                 self.steps,
-                self.total_waiting_time,
-                self.emissions_data,
+                self.tlm.get_average_waiting_time(),
+                self.tlm.get_average_emission(),
             )
         self.steps += 1
 
     def gen_sim(self):
         self.serverless_connect()
         self.conn = traci.getConnection("sim".format(self.idx))
+        self.tlm = TrafficLightManager(self.conn, self.steps)
         print("Connected to SUMO server")
-        traffic_schedule = self.get_traffic_lights()
+        traffic_schedule = self.tlm.get_traffic_light_logics()
+        # print(traffic_schedule)
         self.steps = 0
-
-    def get_traffic_lights(self):
-        trafficlights = self.conn.trafficlight.getIDList()
-        junctions = self.conn.junction.getIDList()
-        self.tl_juncs = set(trafficlights).intersection(set(junctions))
-        green_phases_info = []
-
-        for tl in self.tl_juncs:
-            self.conn.trafficlight.subscribe(
-                tl, [traci.constants.TL_COMPLETE_DEFINITION_RYG]
-            )
-
-            tldata = self.conn.trafficlight.getAllSubscriptionResults()
-            logic = tldata[tl][traci.constants.TL_COMPLETE_DEFINITION_RYG][0]
-
-            green_phases = [
-                p
-                for p in logic.getPhases()
-                if "y" not in p.state and ("G" in p.state or "g" in p.state)
-            ]
-            for green_phase in green_phases:
-
-                green_phases_info.append(
-                    (
-                        tl,
-                        green_phase.state,
-                        green_phase.duration,
-                        green_phase.minDur,
-                        green_phase.maxDur,
-                    )
-                )
-
-        return green_phases_info
 
     def run(self):
         while (
             traci.simulation.getMinExpectedNumber() > 0 and self.steps < self.args.steps
         ):
             self.sim_step()
-            self.calculate_total_waiting_time()
-            self.calculate_total_emission()
+            self.tlm.calculate_total_waiting_time()
+            self.tlm.calculate_total_emission()
+            # self.metrics.set_traffic_lights("429723386", "GrrrrrGGr", 40, 7, 90)
         self.close()
-
-    def calculate_total_waiting_time(self):
-        for tl in self.tl_juncs:
-            total_waiting_time = 0
-            for lane in self.conn.trafficlight.getControlledLanes(tl):
-                waiting_time = traci.lane.getWaitingTime(lane)
-                if waiting_time > 0:
-                    total_waiting_time += waiting_time
-                    if tl in self.total_waiting_time:
-                        self.total_waiting_time[tl] += total_waiting_time
-                    else:
-                        self.total_waiting_time[tl] = total_waiting_time
-                else:
-                    pass
-
-    def calculate_total_emission(self):
-        for tl in self.tl_juncs:
-            for lane in self.conn.trafficlight.getControlledLanes(tl):
-                CO2emission = traci.lane.getCO2Emission(lane)
-                PMxemission = traci.lane.getPMxEmission(lane)
-                HCemission = traci.lane.getHCEmission(lane)
-                COemission = traci.lane.getCOEmission(lane)
-                NOxemission = traci.lane.getNOxEmission(lane)
-                CO2emission = traci.lane.getCO2Emission(lane)
-                if tl in self.emissions_data:
-                    self.emissions_data[tl]["PMx"] += PMxemission
-                    self.emissions_data[tl]["HC"] += HCemission
-                    self.emissions_data[tl]["CO"] += COemission
-                    self.emissions_data[tl]["NOx"] += NOxemission
-                    self.emissions_data[tl]["CO2"] += CO2emission
-                    # emissions_data[tl] = {
-                    #     "PMx": PMx_emission,
-                    #     "HC": HC_emission,
-                    #     "CO": CO_emission,
-                    #     "NOx": NOx_emission,
-                    #     "CO2": CO2_emission,
-                    # }
-                else:
-                    self.emissions_data[tl] = {
-                        "PMx": PMxemission,
-                        "HC": HCemission,
-                        "CO": COemission,
-                        "NOx": NOxemission,
-                        "CO2": CO2emission,
-                    }
-
-    def get_average_waiting_time(self):
-        self.average_waiting_time = {}
-        for tl in self.tl_juncs:
-            self.average_waiting_time[tl] = self.total_waiting_time[tl] / self.steps
-        return self.average_waiting_time
-
-    def get_average_emission(self):
-        self.average_emissions = {}
-        for tl in self.tl_juncs:
-            self.average_emissions[tl] = {}
-            for emissions in self.emissions_data[tl].items():
-                self.average_emissions[tl] = {}
-                for emission_type, value in emissions.items():
-                    self.average_emissions[tl][emission_type] = value / self.steps
-        return self.average_emissions
 
     def close(self):
         self.conn.close()

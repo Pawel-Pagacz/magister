@@ -2,7 +2,6 @@ import sys, os, subprocess, time
 from multiprocessing import *
 import numpy as np
 
-from src.network import Network
 from src.sumosimulation import SumoSim
 
 
@@ -41,4 +40,3 @@ class DistributeProcesses:
         sim = SumoSim(args.cfg_path, args.steps, args.algorithm, True, args, -1)
         sim.gen_sim()
         sim.run()
-        print("XXX", sim.get_average_waiting_time())
