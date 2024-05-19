@@ -18,12 +18,34 @@ class TrafficLightManager:
             logics = self.conn.trafficlight.getAllProgramLogics(tl)
             for logic in logics:
                 self.traffic_light_logics.append((tl, logic))
-        # print(self.traffic_light_logics)
+        print(self.traffic_light_logics)
         return self.traffic_light_logics
 
-    def set_traffic_light_logics(self, new_phases):
-        for phase in self.traffic_light_logics:
-            print(phase)
+    def set_traffic_light_logics(self, new_logics):
+        for tl_id, logic in new_logics:
+            traci.trafficlight.setProgram(tl_id, logic.programID)
+
+            phases = []
+            for phase in logic.phases:
+                phases.append(
+                    traci.trafficlight.Phase(
+                        duration=phase.duration,
+                        minDur=phase.minDur,
+                        maxDur=phase.maxDur,
+                        state=phase.state,
+                    )
+                )
+
+            traci.trafficlight.setProgramLogic(
+                tl_id,
+                traci.trafficlight.Logic(
+                    programID=logic.programID,
+                    type=logic.type,
+                    currentPhaseIndex=logic.currentPhaseIndex,
+                    phases=phases,
+                    subParameter=logic.subParameter,
+                ),
+            )
 
     def calculate_total_waiting_time(self):
         total_waiting_time = 0
@@ -41,6 +63,13 @@ class TrafficLightManager:
                         # print("OUPS", self.total_waiting_time)
                 else:
                     pass
+
+    def get_average_waiting_time(self):
+        self.average_waiting_time = {}
+        # print(self.total_waiting_time)
+        for tl, waiting_time in self.total_waiting_time.items():
+            self.average_waiting_time[tl] = waiting_time / self.steps
+        return self.average_waiting_time
 
     def calculate_total_emission(self):
         for tl, logic in self.traffic_light_logics:
@@ -66,13 +95,6 @@ class TrafficLightManager:
                         "CO2": CO2emission,
                     }
 
-    def get_average_waiting_time(self):
-        self.average_waiting_time = {}
-        # print(self.total_waiting_time)
-        for tl, waiting_time in self.total_waiting_time.items():
-            self.average_waiting_time[tl] = waiting_time / self.steps
-        return self.average_waiting_time
-
     def get_average_emission(self):
         self.average_emissions = {}
         for tl, average_emission in self.emissions_data.items():
@@ -80,27 +102,3 @@ class TrafficLightManager:
             for emission_type, value in average_emission.items():
                 self.average_emissions[tl][emission_type] = value / self.steps
         return self.average_emissions
-
-
-# # Lista identyfikatorów sygnalizatorów świetlnych (dostosuj do swojej symulacji)
-# tl_juncs = [
-#     "cluster_259602058_2924318333",
-#     "419734825",
-#     "429723386",
-#     "cluster_2556814094_429774589",
-# ]
-
-# # Utworzenie obiektu TrafficLightManager
-# manager = TrafficLightManager(self.conn, tl_juncs)
-
-# # Pobranie logiki sygnalizacji świetlnych
-# traffic_light_logics = manager.get_traffic_light_logics()
-
-# # Wyświetlenie wyników
-# for tl_id, logic in traffic_light_logics:
-#     print(f"ID: {tl_id}")
-#     print(f"LOGIC: {logic}")
-#     for idx, phase in enumerate(logic.getPhases()):
-#         print(
-#             f"  Indeks fazy: {idx}, Stan: {phase.state}, Czas trwania: {phase.duration}"
-#         )
