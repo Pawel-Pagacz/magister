@@ -10,18 +10,17 @@ class TrafficLightManager:
         self.emissions_data = {}
 
     def get_traffic_light_logics(self):
-        trafficlights = self.conn.trafficlight.getIDList()
+        self.trafficlights = self.conn.trafficlight.getIDList()
         junctions = self.conn.junction.getIDList()
-        self.tl_juncs = set(trafficlights).intersection(set(junctions))
         self.traffic_light_logics = []
-        for tl in self.tl_juncs:
+        for tl in self.trafficlights:
             logics = self.conn.trafficlight.getAllProgramLogics(tl)
             for logic in logics:
                 self.traffic_light_logics.append((tl, logic))
-        print(self.traffic_light_logics)
         return self.traffic_light_logics
 
     def set_traffic_light_logics(self, new_logics):
+        self.traffic_light_logics = new_logics
         for tl_id, logic in new_logics:
             traci.trafficlight.setProgram(tl_id, logic.programID)
 
@@ -35,7 +34,6 @@ class TrafficLightManager:
                         state=phase.state,
                     )
                 )
-
             traci.trafficlight.setProgramLogic(
                 tl_id,
                 traci.trafficlight.Logic(

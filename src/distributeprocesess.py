@@ -6,13 +6,16 @@ from src.sumosimulation import SumoSim
 
 
 def get_simulation(simulation):
-
     if simulation == "wielun":
         net_path = "networks/wielun/wielun.net.xml"
         cfg_path = "networks/wielun/wielun.sumocfg"
     elif simulation == "wroclaw":
-        net_fp = "networks/wroclaw/wroclaw.net.xml"
-        cfg_fp = "networks/wroclaw/wroclaw.sumocfg"
+        net_path = "networks/wroclaw/wroclaw.net.xml"
+        cfg_path = "networks/wroclaw/wroclaw.sumocfg"
+        print(net_path, cfg_path)
+    else:
+        raise ValueError(f"Unknown simulation: {simulation}")
+
     return cfg_path, net_path
 
 
@@ -35,8 +38,28 @@ class DistributeProcesses:
             args.n = 1
 
         if args.simulation:
-            args.cfg_path, args.net_path = get_simulation(args.sim)
+            args.cfg_path, args.net_path = get_simulation(args.simulation)
 
-        sim = SumoSim(args.cfg_path, args.steps, args.algorithm, True, args, -1)
-        sim.gen_sim()
-        sim.run()
+        dummy_sim = SumoSim(
+            cfg_path=args.cfg_path,
+            steps=args.steps,
+            algorithm=args.algorithm,
+            nogui=True,
+            args=args,
+            idx=-1,
+        )
+        logic, _ = dummy_sim.gen_sim()
+        print(logic)
+
+        new_sim = SumoSim(
+            cfg_path=args.cfg_path,
+            steps=args.steps,
+            algorithm=args.algorithm,
+            nogui=False,
+            args=args,
+            idx=0,
+            logic=logic,
+        )
+        new_sim.gen_sim()
+        logic, fitness = new_sim.run()
+        print(logic, fitness)

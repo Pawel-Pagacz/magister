@@ -1,6 +1,7 @@
 from collections import namedtuple
+import traci
+import sumolib
 
-# Definicje namedtuple dla Logica i Phase
 Phase = namedtuple("Phase", ["duration", "state", "minDur", "maxDur"])
 Logic = namedtuple(
     "Logic", ["programID", "type", "currentPhaseIndex", "phases", "subParameter"]
@@ -78,28 +79,30 @@ traffic_light_logistic = [
     ),
 ]
 
-filtered_genotype = []
-for tl_id, logic in traffic_light_logistic:
-    filtered_phases = [
-        phase for phase in logic.phases if "G" in phase.state or "g" in phase.state
-    ]
-    if filtered_phases:
-        filtered_genotype.append(
-            (
-                tl_id,
-                Logic(
-                    programID=logic.programID,
-                    type=logic.type,
-                    currentPhaseIndex=logic.currentPhaseIndex,
-                    phases=tuple(filtered_phases),
-                    subParameter=logic.subParameter,
-                ),
-            )
-        )
 
-for tl_id, logic in filtered_genotype:
-    print(f"Traffic Light ID: {tl_id}")
-    for phase in logic.phases:
-        print(
-            f"  Phase: duration={phase.duration}, state={phase.state}, minDur={phase.minDur}, maxDur={phase.maxDur}"
-        )
+def filter_phases():
+    filtered_genotype = []
+    for tl_id, logic in traffic_light_logistic:
+        filtered_phases = [
+            phase for phase in logic.phases if "G" in phase.state or "g" in phase.state
+        ]
+        if filtered_phases:
+            filtered_genotype.append(
+                (
+                    tl_id,
+                    Logic(
+                        programID=logic.programID,
+                        type=logic.type,
+                        currentPhaseIndex=logic.currentPhaseIndex,
+                        phases=tuple(filtered_phases),
+                        subParameter=logic.subParameter,
+                    ),
+                )
+            )
+
+    for tl_id, logic in filtered_genotype:
+        print(f"Traffic Light ID: {tl_id}")
+        for phase in logic.phases:
+            print(
+                f"  Phase: duration={phase.duration}, state={phase.state}, minDur={phase.minDur}, maxDur={phase.maxDur}"
+            )

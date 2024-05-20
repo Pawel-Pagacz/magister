@@ -19,12 +19,13 @@ Logic = namedtuple(
 
 
 class SumoSim:
-    def __init__(self, cfg_path, steps, algorithm, nogui, args, idx):
+    def __init__(self, cfg_path, steps, algorithm, nogui, args, idx, logic=None):
         self.cfg_path = cfg_path
         self.steps = steps
         self.sumo_cmd = "sumo" if nogui else "sumo-gui"
         self.args = args
         self.idx = idx
+        self.logic = logic
 
     def serverless_connect(self):
 
@@ -45,37 +46,15 @@ class SumoSim:
         self.conn = traci.getConnection("sim".format(self.idx))
         self.tlm = TrafficLightManager(self.conn, self.steps)
 
-        """##-----------------Set Traffic Light Logics-----------------
-        traffic_light_logics = self.tlm.get_traffic_light_logics()
-        updated_traffic_light_logics = []
-        for identifier, logic in traffic_light_logics:
-            updated_phases = [
-                Phase(
-                    duration=phase.duration + 3,
-                    state=phase.state,
-                    minDur=phase.minDur,
-                    maxDur=phase.maxDur,
-                )
-                for phase in logic.phases
-            ]
-            # print(updated_phases)
-            updated_logic = Logic(
-                programID=logic.programID,
-                type=logic.type,
-                currentPhaseIndex=logic.currentPhaseIndex,
-                phases=tuple(updated_phases),
-                subParameter=logic.subParameter,
-            )
-            updated_traffic_light_logics.append((identifier, updated_logic))
-        print(updated_traffic_light_logics)
-        """
+        if self.logic == None:
+            print("Connected to SUMO server")
+            self.logic = self.tlm.get_traffic_light_logics()
+            return self.close()
+        else:
+            print("Connected to SUMO server")
+            print("Setting Traffic Light Logics")
+            self.tlm.set_traffic_light_logics(self.logic)
 
-        # Tutaj możesz dodać kod do zapisania zaktualizowanych logik z powrotem do systemu
-        self.tlm.set_traffic_light_logics(updated_traffic_light_logics)
-
-        # self.tlm.set_traffic_light_logics()
-        print("Connected to SUMO server")
-        traffic_schedule = self.tlm.get_traffic_light_logics()
         self.steps = 0
 
     def run(self):
@@ -84,13 +63,12 @@ class SumoSim:
         ):
             self.sim_step()
             self.tlm.calculate_total_waiting_time()
-            # self.tlm.calculate_total_emission()
-        self.tlm.get_average_waiting_time()
-        # self.tlm.get_average_emission()
-        self.close()
+        return self.close()
 
     def close(self):
+        self.steps = 0
         self.conn.close()
+        return self.logic, self.tlm.get_average_waiting_time()
 
 
 # -----------Try if serverless connect will not be working----------------
