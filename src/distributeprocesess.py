@@ -55,7 +55,7 @@ class DistributeProcesses:
             cfg_path=args.cfg_path,
             steps=args.steps,
             algorithm=args.algorithm,
-            nogui=False,
+            nogui=True,
             args=args,
             idx=0,
             logic=logic,

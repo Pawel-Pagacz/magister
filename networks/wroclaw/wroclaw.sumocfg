@@ -7,7 +7,7 @@
 
     <input>
         <net-file value="wroclaw.net.xml"/>
-        <route-files value="wroclaw.passenger.trips.xml"/>
+        <route-files value=" odtrips/wroclaw_bus.odtrips.xml, odtrips/wroclaw_moto.odtrips.xml, odtrips/wroclaw_car.odtrips.xml, odtrips/wroclaw_truck.odtrips.xml, odtrips/wroclaw_trailer.odtrips.xml"/>
         <additional-files value="wroclaw.poly.xml"/>
     </input>
 
