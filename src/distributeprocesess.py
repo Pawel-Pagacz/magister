@@ -55,26 +55,28 @@ class DistributeProcesses:
             population_size=args.n,
             mutation_rate=args.mutation_rate,
         )
-        self.population = ga.generate_random_durations(logic)
+        self.population = ga.generate_initial_population(self.procs)
 
-    def run_simulation(self, i, args, initial_population):
+    def simulation(self, i, args, logic):
         sim = SumoSim(
             cfg_path=args.cfg_path,
             steps=args.steps,
             nogui=True,
             args=args,
             idx=i,
-            logic=initial_population,
+            logic=logic,
         )
         sim.gen_sim()
-        sim.run()
+        logic, fitness = sim.run()
+        print(logic, fitness)
 
     def run(self):
+        processes = []
         for i in range(self.procs):
-            p = Process(
-                target=self.run_simulation, args=(i, self.args, self.population)
-            )
+            logic = self.population[i]
+            p = Process(target=self.simulation, args=(i, self.args, logic))
             p.start()
+            processes.append(p)
         for p in processes:
             p.join()
 
