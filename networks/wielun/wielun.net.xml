@@ -2131,38 +2131,38 @@
     </edge>
 
     <tlLogic id="419734825" type="actuated" programID="0" offset="0">
-        <phase duration="25" state="GGrrrrrr" minDur="5" maxDur="500"/>
+        <phase duration="40" state="GGrrrrrr" minDur="5" maxDur="40"/>
         <phase duration="3"  state="yyrrrrrr"/>
-        <phase duration="25" state="rrrrrrGG" minDur="5" maxDur="500"/>
+        <phase duration="25" state="rrrrrrGG" minDur="5" maxDur="40"/>
         <phase duration="3"  state="rrrrrryy"/>
-        <phase duration="25" state="rrrGGrrr" minDur="5" maxDur="500"/>
+        <phase duration="25" state="rrrGGrrr" minDur="5" maxDur="40"/>
         <phase duration="3"  state="rrryyrrr"/>
         <param key="show-detectors" value="true"/>
     </tlLogic>
     <tlLogic id="429723386" type="actuated" programID="0" offset="0">
-        <phase duration="30" state="GrrrrrGGr" minDur="5" maxDur="500"/>
+        <phase duration="30" state="GrrrrrGGr" minDur="5" maxDur="40"/>
         <phase duration="3"  state="yrrrrryyr"/>
-        <phase duration="10" state="GGrrrrrrr" minDur="5" maxDur="500"/>
+        <phase duration="10" state="GGrrrrrrr" minDur="5" maxDur="40"/>
         <phase duration="3"  state="yyrrrrrrr"/>
-        <phase duration="20" state="rrrGGrrrr" minDur="5" maxDur="500"/>
+        <phase duration="20" state="rrrGGrrrr" minDur="5" maxDur="40"/>
         <phase duration="3"  state="rrryyrrrr"/>
         <param key="show-detectors" value="true"/>
     </tlLogic>
     <tlLogic id="cluster_2556814094_429774589" type="actuated" programID="0" offset="0">
-        <phase duration="41" state="GGgrrrGGgrrr" minDur="5" maxDur="500"/>
+        <phase duration="41" state="GGgrrrGGgrrr" minDur="5" maxDur="40"/>
         <phase duration="3"  state="yyyrrryyyrrr"/>
-        <phase duration="41" state="rrrGGgrrrGGg" minDur="5" maxDur="500"/>
+        <phase duration="41" state="rrrGGgrrrGGg" minDur="5" maxDur="40"/>
         <phase duration="3"  state="rrryyyrrryyy"/>
         <param key="show-detectors" value="true"/>
     </tlLogic>
     <tlLogic id="cluster_259602058_2924318333" type="actuated" programID="0" offset="0">
-        <phase duration="20" state="rrrGGGrrrrrr" minDur="5" maxDur="500"/>
+        <phase duration="20" state="rrrGGGrrrrrr" minDur="5" maxDur="40"/>
         <phase duration="5"  state="rrryyyrrrrrr"/>
-        <phase duration="15" state="GGGrrrrrrrrr" minDur="5" maxDur="500"/>
+        <phase duration="15" state="GGGrrrrrrrrr" minDur="5" maxDur="40"/>
         <phase duration="5"  state="yyyrrrrrrrrr"/>
-        <phase duration="20" state="grrrrrrrrGGG" minDur="5" maxDur="500"/>
+        <phase duration="20" state="grrrrrrrrGGG" minDur="5" maxDur="40"/>
         <phase duration="5"  state="rrrrrrrrrryy"/>
-        <phase duration="20" state="rrrrrrGGGrrr" minDur="5" maxDur="500"/>
+        <phase duration="20" state="rrrrrrGGGrrr" minDur="5" maxDur="40"/>
         <phase duration="5"  state="rrrrrryyyrrr"/>
         <param key="show-detectors" value="true"/>
     </tlLogic>

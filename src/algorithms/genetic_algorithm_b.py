@@ -3,37 +3,53 @@
 
 import random
 
+
 class Chromosome:
     def __init__(self, n):
-        self.parameters = [(random.uniform(10.0, 40.0), random.uniform(1.0, 10.0), random.uniform(100.0, 600.0)) for _ in range(n)]
-    
+        self.parameters = [
+            (
+                random.uniform(10.0, 40.0),
+                random.uniform(1.0, 10.0),
+                random.uniform(100.0, 600.0),
+            )
+            for _ in range(n)
+        ]
+
     def evaluate(self):
         return simulate_traffic(self.parameters)
 
+
 def initialize_population(size, n):
     return [Chromosome(n) for _ in range(size)]
+
 
 def selection(population):
     # Select individuals for reproduction (e.g., tournament selection)
     return selected_individuals
 
+
 def crossover(parent1, parent2, n):
     # Perform crossover (e.g., single-point crossover)
-    crossover_point = random.randint(1, n-1)
-    child1_parameters = parent1.parameters[:crossover_point] + parent2.parameters[crossover_point:]
-    child2_parameters = parent2.parameters[:crossover_point] + parent1.parameters[crossover_point:]
+    crossover_point = random.randint(1, n - 1)
+    child1_parameters = (
+        parent1.parameters[:crossover_point] + parent2.parameters[crossover_point:]
+    )
+    child2_parameters = (
+        parent2.parameters[:crossover_point] + parent1.parameters[crossover_point:]
+    )
     child1 = Chromosome(n)
     child2 = Chromosome(n)
     child1.parameters = child1_parameters
     child2.parameters = child2_parameters
     return child1, child2
 
+
 def mutate(chromosome, n):
     # Mutate a chromosome
     mutation_rate = 0.01
     for i in range(n):
         if random.random() < mutation_rate:
-            parameter_to_mutate =
+            parameter_to_mutate = 1
 
 
 # class GeneticAlgorithm:

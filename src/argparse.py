@@ -75,29 +75,6 @@ def parse_args():
         help="max sim offset fraction of total sim length, default: 0.3",
     )
 
-    # shared tsc params
-    parser.add_argument(
-        "-gmin",
-        type=int,
-        default=5,
-        dest="g_min",
-        help="minimum green phase time (s), default: 5",
-    )
-    parser.add_argument(
-        "-y",
-        type=int,
-        default=2,
-        dest="y",
-        help="yellow change phase time (s), default: 2",
-    )
-    parser.add_argument(
-        "-r",
-        type=int,
-        default=3,
-        dest="r",
-        help="all red stop phase time (s), default: 3",
-    )
-
     # genetic algorithm parameters
     parser.add_argument(
         "-nreplay",
@@ -112,5 +89,19 @@ def parse_args():
         default=86400,
         dest="steps",
         help="length of simulation in seconds/steps",
+    )
+    parser.add_argument(
+        "-mutation_rate",
+        type=int,
+        default=0.2,
+        dest="mutation_rate",
+        help="set mutation rate for genetic algorithm, default: 0.2",
+    )
+    parser.add_argument(
+        "-crossover_rate",
+        type=int,
+        default=0.8,
+        dest="crossover_rate",
+        help="set crossover rate for genetic algorithm, default: 0.8",
     )
     return parser.parse_args()

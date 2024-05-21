@@ -8,6 +8,7 @@ def main():
     args = parse_args()
     net_path = args.net_path
     distprocs = DistributeProcesses(args, args.algorithm)
+    distprocs.run()
 
 
 if __name__ == "__main__":

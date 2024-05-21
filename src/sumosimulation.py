@@ -1,7 +1,6 @@
 import os, sys, subprocess
 import traci
 import numpy as np
-import optparse
 from src.trafficlightmanager import TrafficLightManager
 from collections import namedtuple
 
@@ -19,7 +18,7 @@ Logic = namedtuple(
 
 
 class SumoSim:
-    def __init__(self, cfg_path, steps, algorithm, nogui, args, idx, logic=None):
+    def __init__(self, cfg_path, steps, nogui, args, idx, logic=None):
         self.cfg_path = cfg_path
         self.steps = steps
         self.sumo_cmd = "sumo" if nogui else "sumo-gui"
@@ -28,7 +27,6 @@ class SumoSim:
         self.logic = logic
 
     def serverless_connect(self):
-
         sumoBinary = checkBinary(self.sumo_cmd)
         traci.start(
             [
@@ -45,7 +43,7 @@ class SumoSim:
 
     def sim_step(self):
         self.conn.simulationStep()
-        if self.steps % 1000 == 0:
+        if self.steps % 5000 == 0:
             print("Step: ", self.steps)
         self.steps += 1
 
@@ -75,7 +73,6 @@ class SumoSim:
         self.steps = 0
         if self.idx > -1:
             self.tlm.calculate_waiting_time()
-            print(self.tlm.get_average_waiting_time())
         return self.logic, self.tlm.get_average_waiting_time()
 
 

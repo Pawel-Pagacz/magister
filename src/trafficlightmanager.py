@@ -10,14 +10,11 @@ class TrafficLightManager:
         self.args = args
         self.idx = idx
         self.average_waiting_time = 0
-        self.controlled_lanes = [
-            lane
-            for tl in traci.trafficlight.getIDList()
-            for lane in traci.trafficlight.getControlledLanes(tl)
-        ]
-        print(self.controlled_lanes)
         self.total_waiting_time = {}
         self.emissions_data = {}
+        self.controlled_lanes = {}
+        for tl in self.conn.trafficlight.getIDList():
+            self.controlled_lanes[tl] = self.conn.trafficlight.getControlledLanes(tl)
 
     def get_traffic_light_logics(self):
         self.trafficlights = self.conn.trafficlight.getIDList()
@@ -69,13 +66,13 @@ class TrafficLightManager:
                     queueing_time = float(lane.get("queueing_time"))
 
                     for tl, _ in self.traffic_light_logics:
-                        if lane_id in self.controlled_lanes:
+                        if lane_id in self.controlled_lanes.get(tl, []):
                             if tl not in total_waiting_time:
                                 total_waiting_time[tl] = 0.0
                             total_waiting_time[tl] += queueing_time
-                            print(tl, total_waiting_time[tl])
-                            average_waiting_time[tl] = (
-                                total_waiting_time[tl] / self.steps
+                            # print(tl, total_waiting_time[tl])
+                            average_waiting_time[tl] = round(
+                                total_waiting_time[tl] / self.steps, 2
                             )
         self.average_waiting_time = average_waiting_time
         self.total_waiting_time = total_waiting_time

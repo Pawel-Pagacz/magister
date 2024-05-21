@@ -1,8 +1,9 @@
 import sys, os, subprocess, time
 from multiprocessing import *
 import numpy as np
-
+from multiprocessing import Process
 from src.sumosimulation import SumoSim
+from src.algorithms.genetic_algorithm import GeneticAlgorithm
 
 
 def get_simulation(simulation):
@@ -43,23 +44,65 @@ class DistributeProcesses:
         dummy_sim = SumoSim(
             cfg_path=args.cfg_path,
             steps=args.steps,
-            algorithm=args.algorithm,
             nogui=True,
             args=args,
             idx=-1,
         )
         logic, _ = dummy_sim.gen_sim()
         print(logic)
+        ga = GeneticAlgorithm(
+            initial_logic=logic,
+            population_size=args.n,
+            mutation_rate=args.mutation_rate,
+        )
+        self.population = ga.generate_random_durations(logic)
 
-        new_sim = SumoSim(
+    def run_simulation(self, i, args, initial_population):
+        sim = SumoSim(
             cfg_path=args.cfg_path,
             steps=args.steps,
-            algorithm=args.algorithm,
             nogui=True,
             args=args,
-            idx=0,
-            logic=logic,
+            idx=i,
+            logic=initial_population,
         )
-        new_sim.gen_sim()
-        logic, fitness = new_sim.run()
-        print(logic, fitness)
+        sim.gen_sim()
+        sim.run()
+
+    def run(self):
+        for i in range(self.procs):
+            p = Process(
+                target=self.run_simulation, args=(i, self.args, self.population)
+            )
+            p.start()
+        for p in processes:
+            p.join()
+
+    # with Pool(processes=args.n) as pool:
+    #     sims = [
+    #         SumoSim(
+    #             cfg_path=args.cfg_path,
+    #             steps=args.steps,
+    #             algorithm=args.algorithm,
+    #             nogui=True,
+    #             args=args,
+    #             idx=i,
+    #             logic=initial_population,
+    #         )
+    #         for i in range(args.n)
+    #     ]
+    #     pool.map(SumoSim.gen_and_run, sims)
+
+    # print(logic, fitness)
+    # new_sim = SumoSim(
+    #     cfg_path=args.cfg_path,
+    #     steps=args.steps,
+    #     algorithm=args.algorithm,
+    #     nogui=True,
+    #     args=args,
+    #     idx=0,
+    #     logic=logic,
+    # )
+    # new_sim.gen_sim()
+    # logic, fitness = new_sim.run()
+    # print(logic, fitness)
