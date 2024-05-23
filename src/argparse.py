@@ -13,14 +13,7 @@ def parse_args():
         dest="n",
         help="number of sim procs (parallel simulations) generating experiences, default: os.cpu_count()-1",
     )
-    # sumo parameters
-    parser.add_argument(
-        "-port",
-        type=int,
-        default=9000,
-        dest="port",
-        help="port to connect self.conn.server, default: 9000",
-    )
+
     parser.add_argument(
         "-simulation",
         type=str,
@@ -60,19 +53,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "-scale",
-        type=float,
-        default=1.0,
-        dest="scale",
-        help="vehicle generation scale parameter, higher values generates more vehicles, default: 1.0",
-    )  # Nie wiem czy zadziała
-
-    parser.add_argument(
-        "-offset",
-        type=float,
-        default=0.25,
-        dest="offset",
-        help="max sim offset fraction of total sim length, default: 0.3",
+        "-steps",
+        type=int,
+        default=86400,
+        dest="steps",
+        help="length of simulation in seconds/steps",
     )
 
     # genetic algorithm parameters
@@ -83,13 +68,7 @@ def parse_args():
         dest="nreplay",
         help="maximum size of experience replay, default: 100",
     )
-    parser.add_argument(
-        "-steps",
-        type=int,
-        default=86400,
-        dest="steps",
-        help="length of simulation in seconds/steps",
-    )
+
     parser.add_argument(
         "-mutation_rate",
         type=int,
@@ -103,5 +82,13 @@ def parse_args():
         default=0.8,
         dest="crossover_rate",
         help="set crossover rate for genetic algorithm, default: 0.8",
+    )
+
+    parser.add_argument(
+        "-pop_size",
+        type=int,
+        default=10,
+        dest="pop_size",
+        help="set population size for genetic algorithm, default: 10",
     )
     return parser.parse_args()

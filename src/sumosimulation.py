@@ -74,25 +74,3 @@ class SumoSim:
         if self.idx > -1:
             self.tlm.calculate_waiting_time()
         return self.logic, self.tlm.get_average_waiting_time()
-
-
-# -----------Try if serverless connect will not be working----------------
-# def server_connect(self):
-#     sumoBinary = checkBinary(self.sumo_cmd)
-#     port = self.args.port + self.idx
-#     sumo_process = subprocess.Popen(
-#         [
-#             sumoBinary,
-#             "-c",
-#             self.cfg_fp,
-#             "--remote-port",
-#             str(port),
-#             "--no-warnings",
-#             "--no-step-log",
-#             "--random",
-#         ],
-#         stdout=None,
-#         stderr=None,
-#     )
-
-#     return traci.connect(port), sumo_process

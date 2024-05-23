@@ -1,7 +1,8 @@
 import sys, os, subprocess, time
 from multiprocessing import *
 import numpy as np
-from multiprocessing import Process
+from multiprocessing import Process, Manager
+from concurrent.futures import ProcessPoolExecutor
 from src.sumosimulation import SumoSim
 from src.algorithms.genetic_algorithm import GeneticAlgorithm
 
@@ -13,7 +14,6 @@ def get_simulation(simulation):
     elif simulation == "wroclaw":
         net_path = "networks/wroclaw/wroclaw.net.xml"
         cfg_path = "networks/wroclaw/wroclaw.sumocfg"
-        print(net_path, cfg_path)
     else:
         raise ValueError(f"Unknown simulation: {simulation}")
 
@@ -55,7 +55,7 @@ class DistributeProcesses:
             population_size=args.n,
             mutation_rate=args.mutation_rate,
         )
-        self.population = ga.generate_initial_population(self.procs)
+        self.parent_population = ga.generate_initial_population(self.args.pop_size)
 
     def simulation(self, i, args, logic):
         sim = SumoSim(
@@ -68,43 +68,21 @@ class DistributeProcesses:
         )
         sim.gen_sim()
         logic, fitness = sim.run()
-        print(logic, fitness)
+        return logic, fitness
 
     def run(self):
-        processes = []
-        for i in range(self.procs):
-            logic = self.population[i]
-            p = Process(target=self.simulation, args=(i, self.args, logic))
-            p.start()
-            processes.append(p)
-        for p in processes:
-            p.join()
+        with ProcessPoolExecutor(max_workers=self.args.n) as executor:
+            simulation_result = []
+            for i in range(self.args.pop_size):
+                logic = self.parent_population[i]
+                simulation_result.append(
+                    executor.submit(self.simulation, i, self.args, logic)
+                )
 
-    # with Pool(processes=args.n) as pool:
-    #     sims = [
-    #         SumoSim(
-    #             cfg_path=args.cfg_path,
-    #             steps=args.steps,
-    #             algorithm=args.algorithm,
-    #             nogui=True,
-    #             args=args,
-    #             idx=i,
-    #             logic=initial_population,
-    #         )
-    #         for i in range(args.n)
-    #     ]
-    #     pool.map(SumoSim.gen_and_run, sims)
+            results = []
+            for future in simulation_result:
+                result = future.result()
+                results.append(result)
 
-    # print(logic, fitness)
-    # new_sim = SumoSim(
-    #     cfg_path=args.cfg_path,
-    #     steps=args.steps,
-    #     algorithm=args.algorithm,
-    #     nogui=True,
-    #     args=args,
-    #     idx=0,
-    #     logic=logic,
-    # )
-    # new_sim.gen_sim()
-    # logic, fitness = new_sim.run()
-    # print(logic, fitness)
+            print(results)
+            return results
