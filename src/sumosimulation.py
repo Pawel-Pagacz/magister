@@ -43,8 +43,8 @@ class SumoSim:
 
     def sim_step(self):
         self.conn.simulationStep()
-        if self.steps % 5000 == 0:
-            print("Step: ", self.steps)
+        if self.steps % 20000 == 0:
+            print("Idx: ", self.idx, "Step: ", self.steps)
         self.steps += 1
 
     def gen_sim(self):

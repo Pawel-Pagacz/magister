@@ -91,4 +91,12 @@ def parse_args():
         dest="pop_size",
         help="set population size for genetic algorithm, default: 10",
     )
+
+    parser.add_argument(
+        "-cont",
+        type=int,
+        default="0",
+        dest="cont",
+        help="continue algorithm, from previous run, default: 0",
+    )
     return parser.parse_args()
