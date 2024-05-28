@@ -58,6 +58,7 @@ class DistributeProcesses:
             initial_logic=logic,
             population_size=args.pop_size,
             mutation_rate=args.mutation_rate,
+            crossover_rate=args.crossover_rate,
         )
         self.ga.parent_population = self.ga.generate_initial_population(
             self.args.pop_size
@@ -75,13 +76,13 @@ class DistributeProcesses:
         self.idx = i
         sim.gen_sim()
         logic, fitness = sim.run()
-        save_to_csv(
-            logic_data=logic,
-            values_data=fitness,
-            population=self.population_idx,
-            csv_file_path="logic_data.csv",
-            pop_size=args.pop_size,
-        )
+        # save_to_csv(
+        #     logic_data=logic,
+        #     values_data=fitness,
+        #     population=self.population_idx,
+        #     csv_file_path="output/logic_data.csv",
+        #     pop_size=args.pop_size,
+        # )
         return logic, fitness
 
     def run_simulation(self, population):
@@ -101,10 +102,9 @@ class DistributeProcesses:
                 "population_idx": self.population_idx,
                 "results": results,
             }
-            pickle_file_path = "saved_data.pkl"
-            with open(pickle_file_path, "ab") as file:
+            pickle_file_path = "output/saved_data.pkl"
+            with open(pickle_file_path, "wb") as file:
                 pickle.dump(data_to_save, file)
-
             return results
 
     def evaluate_population(
@@ -123,16 +123,14 @@ class DistributeProcesses:
         self.ga.generate_children()
 
     def run(self):
-        while self.population_idx < self.args.generations:
+        while self.population_idx < self.args.nreplay:
+            # print("FIRST:", self.ga.parent_population)
             if self.args.cont == 0:
                 data = self.run_simulation(population=self.ga.parent_population)
             else:
                 data, self.population_idx = self.ga.load_population(
-                    pickle_file_path="saved_data.pkl"
+                    pickle_file_path="output/saved_data.pkl"
                 )
-                print(data)
-            print(self.population_idx)
-
             self.ga.parent_fitness = [item[1] for item in data]
             self.evaluate_population(
                 parent_population=self.ga.parent_population,
@@ -140,14 +138,23 @@ class DistributeProcesses:
                 child_population=None,
                 child_fitness=None,
             )
-
+            for logic, fitness in data:
+                save_to_csv(
+                    logic_data=logic,
+                    values_data=fitness,
+                    population=self.population_idx,
+                    csv_file_path="output/logic_data.csv",
+                    pop_size=self.args.pop_size,
+                )
             self.population_idx += 1
             data = self.run_simulation(population=self.ga.child_population)
             self.ga.child_fitness = [item[1] for item in data]
             self.ga.replace_worst_child_with_best_parent()
-
+            # print("LAST:", self.ga.child_population)
             self.ga.parent_population = self.ga.child_population
+            # print("LAST_COMPARE:", self.ga.parent_population)
             self.ga.parent_fitness = self.ga.child_fitness
             self.child_population = None
             self.child_fitness = None
             self.args.cont = 0
+            time.sleep(20)

@@ -72,9 +72,9 @@ def parse_args():
     parser.add_argument(
         "-mutation_rate",
         type=int,
-        default=0.2,
+        default=0.1,
         dest="mutation_rate",
-        help="set mutation rate for genetic algorithm, default: 0.2",
+        help="set mutation rate for genetic algorithm, default: 0.3",
     )
     parser.add_argument(
         "-crossover_rate",

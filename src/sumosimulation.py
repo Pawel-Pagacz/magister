@@ -43,7 +43,7 @@ class SumoSim:
 
     def sim_step(self):
         self.conn.simulationStep()
-        if self.steps % 20000 == 0:
+        if self.steps % 40000 == 0:
             print("Idx: ", self.idx, "Step: ", self.steps)
         self.steps += 1
 
@@ -53,12 +53,9 @@ class SumoSim:
         self.tlm = TrafficLightManager(self.conn, self.steps, self.args, self.idx)
         self.steps = 0
         if self.logic == None:
-            print("Connected to SUMO server")
             self.logic = self.tlm.get_traffic_light_logics()
             return self.close()
         else:
-            print("Connected to SUMO server")
-            print("Setting Traffic Light Logics")
             self.tlm.set_traffic_light_logics(self.logic)
 
     def run(self):

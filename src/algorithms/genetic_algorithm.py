@@ -23,6 +23,7 @@ class GeneticAlgorithm:
         initial_logic,
         population_size,
         mutation_rate,
+        crossover_rate,
         parent_population=None,
         child_population=None,
         parent_fitness=None,
@@ -30,6 +31,7 @@ class GeneticAlgorithm:
     ):
         self.population_size = population_size
         self.mutation_rate = mutation_rate
+        self.crossover_rate = crossover_rate
         self.parent_population = parent_population if parent_population else None
         self.child_population = child_population if child_population else None
         self.parent_fitness = parent_fitness if parent_fitness else None
@@ -111,10 +113,12 @@ class GeneticAlgorithm:
             )
         return roulette_selected_logic
 
-    # def
-
     def crossover(self, parent1, parent2):
         child1, child2 = [], []
+        if random.random() > self.crossover_rate:
+            return self.generate_random_durations(
+                parent1
+            ), self.generate_random_durations(parent2)
         for i in range(len(parent1)):
             if i % 2 == 0:
                 child1.append(parent1[i])
@@ -125,13 +129,13 @@ class GeneticAlgorithm:
                 child2.append(parent1[i])
         return child1, child2
 
-    def mutate(self, traffic_logic, mutation_rate=0.3):
+    def mutate(self, traffic_logic):
         for tl, logic in traffic_logic:
             phases = self.filter_phases(logic)
             for phase in phases:
-                if random.random() < mutation_rate:
-                    phase.duration = phase.duration + int(random.uniform(-20, 20))
-                    phase.minDur = phase.minDur + int(random.uniform(-10, 10))
+                if random.random() < self.mutation_rate:
+                    phase.duration = phase.duration + int(random.uniform(-10, 10))
+                    phase.minDur = phase.minDur + int(random.uniform(-5, 5))
                     phase.maxDur = phase.maxDur + int(random.uniform(-10, 10))
                     if phase.duration < 5:
                         phase.duration = 5
@@ -144,7 +148,7 @@ class GeneticAlgorithm:
         return traffic_logic
 
     def generate_children(self):
-        population_children = [len(self.parent_population) * [None]]
+        population_children = [None] * len(self.parent_population)
         for i in range(0, len(self.parent_population), 2):
 
             parent1_logic = self.evaluate_population()
@@ -156,19 +160,27 @@ class GeneticAlgorithm:
 
             population_children[i] = child1_logic
             population_children[i + 1] = (
-                child2_logic if i + 1 <= len(self.parent_population) else None
+                child2_logic if i + 1 < len(self.parent_population) else None
             )
         self.child_population = population_children
 
     def replace_worst_child_with_best_parent(self):
+        # print("BEFORE:", self.child_population)
         sum_parent_fitness = self.sum_fitness_all(self.parent_fitness)
+        # print(sum_parent_fitness)
         best_parent_index = sum_parent_fitness.index(min(sum_parent_fitness))
+        print(best_parent_index)
         best_parent_logic = self.parent_population[best_parent_index]
+        # print(best_parent_logic)
         best_parent_fitness = self.parent_fitness[best_parent_index]
+        # print(best_parent_fitness)
         sum_child_fitness = self.sum_fitness_all(self.child_fitness)
+        # print(sum_child_fitness)
         worst_child_index = sum_child_fitness.index(max(sum_child_fitness))
+        # print(worst_child_index)
         self.child_population[worst_child_index] = best_parent_logic
         self.child_fitness[worst_child_index] = best_parent_fitness
+        # print("AFTER:", self.child_population)
 
     def load_population(self, pickle_file_path):
         with open(pickle_file_path, "rb") as file:
