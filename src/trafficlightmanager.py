@@ -70,7 +70,6 @@ class TrafficLightManager:
                             if tl not in total_waiting_time:
                                 total_waiting_time[tl] = 0.0
                             total_waiting_time[tl] += queueing_time
-                            # print(tl, total_waiting_time[tl])
                             average_waiting_time[tl] = round(
                                 total_waiting_time[tl] / self.steps, 2
                             )
@@ -79,35 +78,3 @@ class TrafficLightManager:
 
     def get_average_waiting_time(self):
         return self.average_waiting_time
-
-    # def calculate_total_emission(self):
-    #     for tl, logic in self.traffic_light_logics:
-    #         for lane in self.conn.trafficlight.getControlledLanes(tl):
-    #             CO2emission = self.conn.lane.getCO2Emission(lane)
-    #             PMxemission = self.conn.lane.getPMxEmission(lane)
-    #             HCemission = self.conn.lane.getHCEmission(lane)
-    #             COemission = self.conn.lane.getCOEmission(lane)
-    #             NOxemission = self.conn.lane.getNOxEmission(lane)
-    #             CO2emission = self.conn.lane.getCO2Emission(lane)
-    #             if tl in self.emissions_data:
-    #                 self.emissions_data[tl]["PMx"] += PMxemission
-    #                 self.emissions_data[tl]["HC"] += HCemission
-    #                 self.emissions_data[tl]["CO"] += COemission
-    #                 self.emissions_data[tl]["NOx"] += NOxemission
-    #                 self.emissions_data[tl]["CO2"] += CO2emission
-    #             else:
-    #                 self.emissions_data[tl] = {
-    #                     "PMx": PMxemission,
-    #                     "HC": HCemission,
-    #                     "CO": COemission,
-    #                     "NOx": NOxemission,
-    #                     "CO2": CO2emission,
-    #                 }
-
-    # def get_average_emission(self):
-    #     self.average_emissions = {}
-    #     for tl, average_emission in self.emissions_data.items():
-    #         self.average_emissions[tl] = {}
-    #         for emission_type, value in average_emission.items():
-    #             self.average_emissions[tl][emission_type] = value / self.steps
-    #     return self.average_emissions
