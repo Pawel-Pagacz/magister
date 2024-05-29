@@ -113,21 +113,68 @@ class GeneticAlgorithm:
             )
         return roulette_selected_logic
 
-    def crossover(self, parent1, parent2):
-        child1, child2 = [], []
+    def generate_average_durations(self, traffic_logic_1, traffic_logic_2):
+        for tl, logic in traffic_logic_1:
+            for phase_1, phase_2 in zip(phases_1, phases_2):
+                phase_1.duration = (phase_1.duration + phase_2.duration) // 2
+                phase_1.minDur = (phase_1.minDur + phase_2.minDur) // 2
+                phase_1.maxDur = (phase_1.maxDur + phase_2.maxDur) // 2
+        return traffic_logic_1
+
+    # def crossover(self, parent1, parent2):
+    #     child1, child2 = [], []
+    #     if random.random() > self.crossover_rate:
+    #         return self.generate_random_durations(
+    #             parent1
+    #         ), self.generate_random_durations(parent2)
+    #     for i in range(len(parent1)):
+    #         if i % 2 == 0:
+    #             child1.append(parent1[i])
+    #             child2.append(parent2[i])
+
+    #         else:
+    #             child1.append(parent2[i])
+    #             child2.append(parent1[i])
+    #     return child1, child2
+
+    def crossover(self, parent1, parent2, alpha=0.5):
         if random.random() > self.crossover_rate:
             return self.generate_random_durations(
                 parent1
             ), self.generate_random_durations(parent2)
         for i in range(len(parent1)):
-            if i % 2 == 0:
-                child1.append(parent1[i])
-                child2.append(parent2[i])
+            tl1, logic1 = parent1[i]
+            tl2, logic2 = parent2[i]
+            child_logic1 = []
+            child_logic2 = []
 
-            else:
-                child1.append(parent2[i])
-                child2.append(parent1[i])
-        return child1, child2
+            phases1 = self.filter_phases(logic1)
+            phases2 = self.filter_phases(logic2)
+
+            for phase1, phase2 in zip(phases1, phases2):
+                duration1 = phase1.duration
+                duration2 = phase2.duration
+                d = abs(duration1 - duration2)
+                lower_bound = min(duration1, duration2) - alpha * d
+                upper_bound = max(duration1, duration2) + alpha * d
+
+                new_duration1 = int(random.uniform(lower_bound, upper_bound))
+                new_duration2 = int(random.uniform(lower_bound, upper_bound))
+
+                new_minDur1 = int(random.uniform(3, min(10, new_duration1)))
+                new_maxDur1 = int(random.uniform(new_duration1, 100))
+
+                new_minDur2 = int(random.uniform(3, min(10, new_duration2)))
+                new_maxDur2 = int(random.uniform(new_duration2, 100))
+
+                phase1.duration = new_duration1
+                phase1.minDur = new_minDur1
+                phase1.maxDur = new_maxDur1
+                phase2.duration = new_duration2
+                phase2.minDur = new_minDur2
+                phase2.maxDur = new_maxDur2
+        # print(parent1, parent2)
+        return parent1, parent2
 
     def mutate(self, traffic_logic):
         for tl, logic in traffic_logic:
@@ -169,7 +216,7 @@ class GeneticAlgorithm:
         sum_parent_fitness = self.sum_fitness_all(self.parent_fitness)
         # print(sum_parent_fitness)
         best_parent_index = sum_parent_fitness.index(min(sum_parent_fitness))
-        print(best_parent_index)
+        # print(best_parent_index)
         best_parent_logic = self.parent_population[best_parent_index]
         # print(best_parent_logic)
         best_parent_fitness = self.parent_fitness[best_parent_index]

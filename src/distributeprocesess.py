@@ -51,6 +51,7 @@ class DistributeProcesses:
             steps=args.steps,
             nogui=True,
             args=args,
+            population_idx=self.population_idx,
             idx=-1,
         )
         logic, _ = dummy_sim.gen_sim()
@@ -71,6 +72,7 @@ class DistributeProcesses:
             nogui=True,
             args=args,
             idx=i,
+            population_idx=self.population_idx,
             logic=logic,
         )
         self.idx = i
@@ -102,7 +104,7 @@ class DistributeProcesses:
                 "population_idx": self.population_idx,
                 "results": results,
             }
-            pickle_file_path = "output/saved_data.pkl"
+            pickle_file_path = "logs/saved_data.pkl"
             with open(pickle_file_path, "wb") as file:
                 pickle.dump(data_to_save, file)
             return results
@@ -123,13 +125,13 @@ class DistributeProcesses:
         self.ga.generate_children()
 
     def run(self):
+        start = 1
         while self.population_idx < self.args.nreplay:
-            # print("FIRST:", self.ga.parent_population)
-            if self.args.cont == 0:
+            if self.args.cont == 0 and start == 1:
                 data = self.run_simulation(population=self.ga.parent_population)
             else:
                 data, self.population_idx = self.ga.load_population(
-                    pickle_file_path="output/saved_data.pkl"
+                    pickle_file_path="logs/saved_data.pkl"
                 )
             self.ga.parent_fitness = [item[1] for item in data]
             self.evaluate_population(
@@ -143,7 +145,7 @@ class DistributeProcesses:
                     logic_data=logic,
                     values_data=fitness,
                     population=self.population_idx,
-                    csv_file_path="output/logic_data.csv",
+                    csv_file_path="logs/logic_data.csv",
                     pop_size=self.args.pop_size,
                 )
             self.population_idx += 1
@@ -156,5 +158,4 @@ class DistributeProcesses:
             self.ga.parent_fitness = self.ga.child_fitness
             self.child_population = None
             self.child_fitness = None
-            self.args.cont = 0
-            time.sleep(20)
+            start = 0

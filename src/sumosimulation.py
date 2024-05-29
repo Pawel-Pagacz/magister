@@ -18,13 +18,14 @@ Logic = namedtuple(
 
 
 class SumoSim:
-    def __init__(self, cfg_path, steps, nogui, args, idx, logic=None):
+    def __init__(self, cfg_path, steps, nogui, args, idx, population_idx, logic=None):
         self.cfg_path = cfg_path
         self.steps = steps
         self.sumo_cmd = "sumo" if nogui else "sumo-gui"
         self.args = args
         self.idx = idx
         self.logic = logic
+        self.population_idx = population_idx
 
     def serverless_connect(self):
         sumoBinary = checkBinary(self.sumo_cmd)
@@ -44,7 +45,14 @@ class SumoSim:
     def sim_step(self):
         self.conn.simulationStep()
         if self.steps % 40000 == 0:
-            print("Idx: ", self.idx, "Step: ", self.steps)
+            print(
+                "Pop: ",
+                self.population_idx,
+                "Procs Idx: ",
+                self.idx,
+                "Step: ",
+                self.steps,
+            )
         self.steps += 1
 
     def gen_sim(self):
