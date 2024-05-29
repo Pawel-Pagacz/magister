@@ -13,33 +13,19 @@ def parse_args():
         dest="n",
         help="number of sim procs (parallel simulations) generating experiences, default: os.cpu_count()-1",
     )
-    parser.add_argument(
-        "-l",
-        type=int,
-        default=1,
-        dest="l",
-        help="number of parallel learner procs producing updates, default: 1",
-    )
 
-    # sumo parameters
-    parser.add_argument(
-        "-port",
-        type=int,
-        default=9000,
-        dest="port",
-        help="port to connect self.conn.server, default: 9000",
-    )
     parser.add_argument(
         "-simulation",
         type=str,
-        default=None,
-        dest="sim",
+        default="wielun",
+        dest="simulation",
         help="simulation scenario, default: wielun, options:wroclaw, wielun",
     )
     parser.add_argument(
         "-netpath",
         type=str,
         default="networks/wielun/wielun.net.xml",
+        # default="networks/wroclaw/wroclaw.net.xml",
         dest="net_path",
         help="path to desired simulation network file, default: networks/wielun/wielun.net.xml",
     )
@@ -47,6 +33,7 @@ def parse_args():
         "-sumocfg",
         type=str,
         default="networks/wielun/wielun.sumocfg",
+        # default="networks/wroclaw/wroclaw.sumocfg",
         dest="cfg_path",
         help="path to desired simulation configuration file, default: networks/wielun/wielun.sumocfg",
     )
@@ -64,50 +51,52 @@ def parse_args():
         dest="nogui",
         help="disable gui, default: False",
     )
-    parser.add_argument(
-        "-scale",
-        type=float,
-        default=1.0,
-        dest="scale",
-        help="vehicle generation scale parameter, higher values generates more vehicles, default: 1.0",
-    )
 
-    # shared tsc params
     parser.add_argument(
-        "-gmin",
+        "-steps",
         type=int,
-        default=5,
-        dest="g_min",
-        help="minimum green phase time (s), default: 5",
-    )
-    parser.add_argument(
-        "-y",
-        type=int,
-        default=2,
-        dest="y",
-        help="yellow change phase time (s), default: 2",
-    )
-    parser.add_argument(
-        "-r",
-        type=int,
-        default=3,
-        dest="r",
-        help="all red stop phase time (s), default: 3",
+        default=86400,
+        dest="steps",
+        help="length of simulation in seconds/steps",
     )
 
     # genetic algorithm parameters
     parser.add_argument(
         "-nreplay",
         type=int,
-        default=10000,
+        default=100,
         dest="nreplay",
-        help="maximum size of experience replay, default: 10000",
+        help="maximum size of experience replay, default: 100",
+    )
+
+    parser.add_argument(
+        "-mutation_rate",
+        type=int,
+        default=0.1,
+        dest="mutation_rate",
+        help="set mutation rate for genetic algorithm, default: 0.3",
     )
     parser.add_argument(
-        "-simlen",
+        "-crossover_rate",
         type=int,
-        default=10800,
-        dest="sim_len",
-        help="length of simulation in seconds/steps",
+        default=0.8,
+        dest="crossover_rate",
+        help="set crossover rate for genetic algorithm, default: 0.8",
+    )
+
+    parser.add_argument(
+        "-pop_size",
+        type=int,
+        default=10,
+        dest="pop_size",
+        help="set population size for genetic algorithm, default: 10",
+    )
+
+    parser.add_argument(
+        "-cont",
+        type=int,
+        default="0",
+        dest="cont",
+        help="continue algorithm, from previous run, default: 0",
     )
     return parser.parse_args()

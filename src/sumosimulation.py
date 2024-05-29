@@ -1,10 +1,8 @@
 import os, sys, subprocess
 import traci
 import numpy as np
-
-from src.trafficsignalcontroller import TrafficSignalController
-from src.tsc_factory import tsc_factory
-from src.helper_funcs import write_to_log
+from src.trafficlightmanager import TrafficLightManager
+from collections import namedtuple
 
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
@@ -13,136 +11,71 @@ if "SUMO_HOME" in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
+Phase = namedtuple("Phase", ["duration", "state", "minDur", "maxDur"])
+Logic = namedtuple(
+    "Logic", ["programID", "type", "currentPhaseIndex", "phases", "subParameter"]
+)
+
 
 class SumoSim:
-    def __init__(self, cfg_path, sim_len, algorithm, nogui, netdata, args, idx):
+    def __init__(self, cfg_path, steps, nogui, args, idx, population_idx, logic=None):
         self.cfg_path = cfg_path
-        self.sim_len = sim_len
-        self.tsc = tsc
+        self.steps = steps
         self.sumo_cmd = "sumo" if nogui else "sumo-gui"
-        self.netdata = netdata
         self.args = args
         self.idx = idx
+        self.logic = logic
+        self.population_idx = population_idx
 
     def serverless_connect(self):
-        traci.start(
-            [
-                self.sumo_cmd,
-                "-c",
-                self.cfg_path,
-                "--no-step-log",
-                "--no-warnings",
-                "--random",
-            ]
-        )
-
-    def server_connect(self):
         sumoBinary = checkBinary(self.sumo_cmd)
-        port = self.args.port + self.idx
-        sumo_process = subprocess.Popen(
+        traci.start(
             [
                 sumoBinary,
                 "-c",
                 self.cfg_path,
-                "--remote-port",
-                str(port),
-                "--no-warnings",
                 "--no-step-log",
-                "--random",
+                "--no-warnings",
+                "--queue-output",
+                f"output/queue_{self.args.simulation}{self.idx}.xml",
             ],
-            stdout=None,
-            stderr=None,
+            label="sim".format(self.idx),
         )
-
-        return traci.connect(port), sumo_process
-
-    def get_traffic_lights(self):
-        trafficlights = self.conn.trafficlight.getIDList()
-        junctions = self.conn.junction.getIDList()
-        tl_juncs = set(trafficlights).intersection(set(junctions))
-        tls = []
-
-        for tl in tl_juncs:
-            self.conn.trafficlight.subscribe(
-                tl, [traci.constants.TL_COMPLETE_DEFINITION_RYG]
-            )
-
-            tldata = self.conn.trafficlight.getAllSubscriptionResults()
-            logic = tldata[tl][traci.constants.TL_COMPLETE_DEFINITION_RYG][0]
-            # logic = self.conn.trafficlight.getCompleteRedYellowGreenDefinition(tl)[0]
-            green_phases = [
-                p.state
-                for p in logic.getPhases()
-                if "y" not in p.state and ("G" in p.state or "g" in p.state)
-            ]
-            if len(green_phases) > 1:
-                tls.append(tl)
-
-    def create_tsc(self, rl_stats, exp_replays, eps, neural_networks=None):
-        self.tl_junc = self.get_traffic_lights()
-        if not neural_networks:
-            neural_networks = {tl: None for tl in self.tl_junc}
-        # create traffic signal controllers for the junctions with lights
-        self.tsc = {
-            tl: tsc_factory(
-                self.args.tsc,
-                tl,
-                self.args,
-                self.netdata,
-                rl_stats[tl],
-                exp_replays[tl],
-                neural_networks[tl],
-                eps,
-                self.conn,
-            )
-            for tl in self.tl_junc
-        }
-
-    def update_netdata(self):
-        tl_junc = self.get_traffic_lights()
-        tsc = {
-            tl: TrafficSignalController(
-                self.conn, tl, self.args.mode, self.netdata, 2, 3
-            )
-            for tl in tl_junc
-        }
-
-        for t in tsc:
-            self.netdata["inter"][t]["incoming_lanes"] = tsc[t].incoming_lanes
-            self.netdata["inter"][t]["green_phases"] = tsc[t].green_phases
-
-        all_intersections = set(self.netdata["inter"].keys())
-        # only keep intersections that we want to control
-        for i in all_intersections - tl_junc:
-            del self.netdata["inter"][i]
-
-        return self.netdata
 
     def sim_step(self):
         self.conn.simulationStep()
-        self.t += 1
+        if self.steps % 40000 == 0:
+            print(
+                "Pop: ",
+                self.population_idx,
+                "Procs Idx: ",
+                self.idx,
+                "Step: ",
+                self.steps,
+            )
+        self.steps += 1
+
+    def gen_sim(self):
+        self.serverless_connect()
+        self.conn = traci.getConnection("sim".format(self.idx))
+        self.tlm = TrafficLightManager(self.conn, self.steps, self.args, self.idx)
+        self.steps = 0
+        if self.logic == None:
+            self.logic = self.tlm.get_traffic_light_logics()
+            return self.close()
+        else:
+            self.tlm.set_traffic_light_logics(self.logic)
 
     def run(self):
-        # execute simulation for desired length
-        while self.t < self.sim_len:
-            # run all traffic signal controllers in network
-            for t in self.tsc:
-                self.tsc[t].run()
+        while (
+            traci.simulation.getMinExpectedNumber() > 0 and self.steps < self.args.steps
+        ):
             self.sim_step()
-
-    def get_intersection_subscription(self):
-        tl_data = {}
-        lane_vehicles = {l: {} for l in self.lanes}
-        for tl in self.tl_junc:
-            tl_data[tl] = self.conn.junction.getContextSubscriptionResults(tl)
-            if tl_data[tl] is not None:
-                for v in tl_data[tl]:
-                    lane_vehicles[tl_data[tl][v][traci.constants.VAR_LANE_ID]][v] = (
-                        tl_data[tl][v]
-                    )
-        return lane_vehicles
+        return self.close()
 
     def close(self):
-        # self.conn.close()
         self.conn.close()
-        self.sumo_process.terminate()
+        self.steps = 0
+        if self.idx > -1:
+            self.tlm.calculate_waiting_time()
+        return self.logic, self.tlm.get_average_waiting_time()
