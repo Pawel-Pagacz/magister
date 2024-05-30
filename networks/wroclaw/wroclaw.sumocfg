@@ -11,8 +11,15 @@
         <additional-files value="wroclaw.poly.xml"/>
     </input>
 
+    <output>
+        <queue-output value="simulation.queue.xml"/>
+        <!-- <summary-output value="simulation.summary.xml"/>
+        <emission-output value="simulation.emission.xml"/> -->
+    </output>
     <processing>
         <ignore-route-errors value="true"/>
+        <time-to-teleport value="200"/>
+        <time-to-teleport.remove value="true"/>
     </processing>
 
     <routing>
