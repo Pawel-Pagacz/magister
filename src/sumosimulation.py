@@ -36,15 +36,15 @@ class SumoSim:
                 self.cfg_path,
                 "--no-step-log",
                 "--no-warnings",
-                "--queue-output",
-                f"output/queue_{self.args.simulation}{self.idx}.xml",
+                # "--queue-output",
+                # f"output/queue_{self.args.simulation}{self.idx}.xml",
             ],
             label="sim".format(self.idx),
         )
 
     def sim_step(self):
         self.conn.simulationStep()
-        if self.steps % 40000 == 0:
+        if self.steps % 1000 == 0:
             print(
                 "Pop: ",
                 self.population_idx,

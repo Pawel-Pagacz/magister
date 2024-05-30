@@ -61,9 +61,7 @@ class DistributeProcesses:
             mutation_rate=args.mutation_rate,
             crossover_rate=args.crossover_rate,
         )
-        self.ga.parent_population = self.ga.generate_initial_population(
-            self.args.pop_size
-        )
+        self.ga.generate_initial_population(self.args.pop_size)
 
     def simulation(self, i, args, logic):
         sim = SumoSim(
@@ -129,11 +127,13 @@ class DistributeProcesses:
         while self.population_idx < self.args.nreplay:
             if self.args.cont == 0 and start == 1:
                 data = self.run_simulation(population=self.ga.parent_population)
-            else:
+                self.ga.parent_fitness = [item[1] for item in data]
+            elif self.args.cont == 1 and start == 1:
                 data, self.population_idx = self.ga.load_population(
                     pickle_file_path="logs/saved_data.pkl"
                 )
-            self.ga.parent_fitness = [item[1] for item in data]
+                self.ga.parent_fitness = [item[1] for item in data]
+
             self.evaluate_population(
                 parent_population=self.ga.parent_population,
                 parent_fitness=self.ga.parent_fitness,
@@ -151,10 +151,8 @@ class DistributeProcesses:
             self.population_idx += 1
             data = self.run_simulation(population=self.ga.child_population)
             self.ga.child_fitness = [item[1] for item in data]
-            self.ga.replace_worst_child_with_best_parent()
-            # print("LAST:", self.ga.child_population)
+            # self.ga.replace_worst_child_with_best_parent()
             self.ga.parent_population = self.ga.child_population
-            # print("LAST_COMPARE:", self.ga.parent_population)
             self.ga.parent_fitness = self.ga.child_fitness
             self.child_population = None
             self.child_fitness = None

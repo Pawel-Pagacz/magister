@@ -13,18 +13,20 @@
     </input>
 
     <output>
-        <!-- <queue-output value="simulation.queue.xml"/> -->
+        <queue-output value="simulation.queue.xml"/>
         <!-- <summary-output value="simulation.summary.xml"/>
         <emission-output value="simulation.emission.xml"/> -->
     </output>
 
     <processing>
         <ignore-route-errors value="true"/>
+        <time-to-teleport value="200"/>
+        <time-to-teleport.remove value="true"/>
     </processing>
 
     <routing>
-        <device.rerouting.adaptation-steps value="18"/>
-        <device.rerouting.adaptation-interval value="10"/>
+        <!-- <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/> -->
     </routing>
 
     <report>

@@ -36,8 +36,8 @@ class GeneticAlgorithm:
             phases = self.filter_phases(logic)
             for phase in phases:
                 phase.duration = int(random.uniform(5, 80))
-                phase.minDur = 1  # int(random.uniform(3, 10))
-                phase.maxDur = 100  # int(random.uniform(phase.duration, 100))
+                phase.minDur = phase.duration
+                phase.maxDur = phase.duration
         return traffic_logic
 
     def generate_initial_population(self, population_size):
@@ -134,13 +134,13 @@ class GeneticAlgorithm:
         tournament_selected_logic = self.tournament_selection(tournament_size=2)
         return tournament_selected_logic
 
-    def generate_average_durations(self, traffic_logic_1, traffic_logic_2):
-        for tl, logic in traffic_logic_1:
-            for phase_1, phase_2 in zip(phases_1, phases_2):
-                phase_1.duration = (phase_1.duration + phase_2.duration) // 2
-                phase_1.minDur = (phase_1.minDur + phase_2.minDur) // 2
-                phase_1.maxDur = (phase_1.maxDur + phase_2.maxDur) // 2
-        return traffic_logic_1
+    # def generate_average_durations(self, traffic_logic_1, traffic_logic_2):
+    #     for tl, logic in traffic_logic_1:
+    #         for phase_1, phase_2 in zip(phases_1, phases_2):
+    #             phase_1.duration = (phase_1.duration + phase_2.duration) // 2
+    #             phase_1.minDur = (phase_1.minDur + phase_2.minDur) // 2
+    #             phase_1.maxDur = (phase_1.maxDur + phase_2.maxDur) // 2
+    #     return traffic_logic_1
 
     # def crossover(self, parent1, parent2):
     #     child1, child2 = [], []
@@ -182,11 +182,11 @@ class GeneticAlgorithm:
                 new_duration1 = int(random.uniform(lower_bound, upper_bound))
                 new_duration2 = int(random.uniform(lower_bound, upper_bound))
 
-                new_minDur1 = int(random.uniform(3, min(10, new_duration1)))
-                new_maxDur1 = int(random.uniform(new_duration1, 100))
+                new_minDur1 = new_duration1
+                new_maxDur1 = new_duration1
 
-                new_minDur2 = int(random.uniform(3, min(10, new_duration2)))
-                new_maxDur2 = int(random.uniform(new_duration2, 100))
+                new_minDur2 = new_duration2
+                new_maxDur2 = new_duration2
 
                 phase1.duration = new_duration1
                 phase1.minDur = new_minDur1
@@ -203,18 +203,8 @@ class GeneticAlgorithm:
             for phase in phases:
                 # if random.random() < self.mutation_rate:
                 phase.duration = phase.duration + int(random.uniform(-10, 10))
-                phase.minDur = phase.minDur + int(random.uniform(-5, 5))
-                phase.maxDur = phase.maxDur + int(random.uniform(-10, 10))
-                if phase.duration < 5:
-                    phase.duration = 5
-                if phase.minDur < 3:
-                    phase.minDur = 3
-                if phase.minDur > 10:
-                    phase.minDur = 10
-                if phase.maxDur < phase.duration:
-                    phase.maxDur = phase.duration + 5
-                if phase.maxDur > 100:
-                    phase.maxDur = 100
+                phase.minDur = phase.duration
+                phase.maxDur = phase.maxDur
         return traffic_logic
 
     def generate_children(self):
