@@ -1,46 +1,25 @@
 import random
-from copy import deepcopy
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import List, Tuple, Dict
-from collections import namedtuple
 import copy
-import pandas as pd
 import pickle
-import secrets
+import numpy as np
 
 
 class GeneticAlgorithm:
-    def __init__(
-        self,
-        initial_logic,
-        population_size,
-        mutation_rate,
-        crossover_rate,
-        parent_population=None,
-        child_population=None,
-        parent_fitness=None,
-        child_fitness=None,
-    ):
+    def __init__(self, initial_logic, population_size, mutation_rate, crossover_rate):
         self.population_size = population_size
         self.mutation_rate = mutation_rate
         self.crossover_rate = crossover_rate
-        self.parent_population = parent_population if parent_population else None
-        self.child_population = child_population if child_population else None
-        self.parent_fitness = parent_fitness if parent_fitness else None
-        self.child_fitness = child_fitness if child_fitness else None
         self.initial_logic = initial_logic if initial_logic else None
-        self.selected_logics = []
 
     def generate_random_durations(self, traffic_logic):
         for tl, logic in traffic_logic:
             phases = self.filter_phases(logic)
             for phase in phases:
                 phase.duration = int(random.uniform(5, 80))
-                phase.minDur = 1  # int(random.uniform(3, 10))
-                phase.maxDur = 100  # int(random.uniform(phase.duration, 100))
         return traffic_logic
 
     def generate_initial_population(self, population_size):
+        # self.population = [self.mutate(copy.deepcopy(self.initial_logic)) for _ in range(self.population_size)]
         population = []
         for i in range(population_size):
             initial_traffic_logic_copy = copy.deepcopy(self.initial_logic)
@@ -138,8 +117,6 @@ class GeneticAlgorithm:
         for tl, logic in traffic_logic_1:
             for phase_1, phase_2 in zip(phases_1, phases_2):
                 phase_1.duration = (phase_1.duration + phase_2.duration) // 2
-                phase_1.minDur = (phase_1.minDur + phase_2.minDur) // 2
-                phase_1.maxDur = (phase_1.maxDur + phase_2.maxDur) // 2
         return traffic_logic_1
 
     # def crossover(self, parent1, parent2):
@@ -182,18 +159,7 @@ class GeneticAlgorithm:
                 new_duration1 = int(random.uniform(lower_bound, upper_bound))
                 new_duration2 = int(random.uniform(lower_bound, upper_bound))
 
-                new_minDur1 = int(random.uniform(3, min(10, new_duration1)))
-                new_maxDur1 = int(random.uniform(new_duration1, 100))
-
-                new_minDur2 = int(random.uniform(3, min(10, new_duration2)))
-                new_maxDur2 = int(random.uniform(new_duration2, 100))
-
                 phase1.duration = new_duration1
-                phase1.minDur = new_minDur1
-                phase1.maxDur = new_maxDur1
-                phase2.duration = new_duration2
-                phase2.minDur = new_minDur2
-                phase2.maxDur = new_maxDur2
         # print(parent1, parent2)
         return parent1, parent2
 
@@ -203,18 +169,8 @@ class GeneticAlgorithm:
             for phase in phases:
                 # if random.random() < self.mutation_rate:
                 phase.duration = phase.duration + int(random.uniform(-10, 10))
-                phase.minDur = phase.minDur + int(random.uniform(-5, 5))
-                phase.maxDur = phase.maxDur + int(random.uniform(-10, 10))
                 if phase.duration < 5:
                     phase.duration = 5
-                if phase.minDur < 3:
-                    phase.minDur = 3
-                if phase.minDur > 10:
-                    phase.minDur = 10
-                if phase.maxDur < phase.duration:
-                    phase.maxDur = phase.duration + 5
-                if phase.maxDur > 100:
-                    phase.maxDur = 100
         return traffic_logic
 
     def generate_children(self):

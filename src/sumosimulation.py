@@ -36,15 +36,14 @@ class SumoSim:
                 self.cfg_path,
                 "--no-step-log",
                 "--no-warnings",
-                # "--queue-output",
-                # f"output/queue_{self.args.simulation}{self.idx}.xml",
             ],
             label="sim".format(self.idx),
         )
 
     def sim_step(self):
         self.conn.simulationStep()
-        if self.steps % 1000 == 0:
+        self.tlm.calculate_travel_time()
+        if self.steps % 10000 == 0:
             print(
                 "Pop: ",
                 self.population_idx,
@@ -77,5 +76,5 @@ class SumoSim:
         self.conn.close()
         self.steps = 0
         if self.idx > -1:
-            self.tlm.calculate_waiting_time()
-        return self.logic, self.tlm.get_average_waiting_time()
+            self.tlm.get_average_travel_time()
+        return self.logic, self.tlm.get_average_travel_time()

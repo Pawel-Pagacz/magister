@@ -1,6 +1,6 @@
 import traci
 import sumolib
-import xml.etree.ElementTree as ET
+import time
 
 
 class TrafficLightManager:
@@ -13,6 +13,9 @@ class TrafficLightManager:
         self.total_waiting_time = {}
         self.emissions_data = {}
         self.controlled_lanes = {}
+        self.departure_times = {}
+        self.travel_times = {}
+
         for tl in self.conn.trafficlight.getIDList():
             self.controlled_lanes[tl] = self.conn.trafficlight.getControlledLanes(tl)
 
@@ -31,16 +34,15 @@ class TrafficLightManager:
         for tl_id, logic in new_logics:
             traci.trafficlight.setProgram(tl_id, logic.programID)
 
-            phases = []
-            for phase in logic.phases:
-                phases.append(
-                    traci.trafficlight.Phase(
-                        duration=phase.duration,
-                        minDur=phase.minDur,
-                        maxDur=phase.maxDur,
-                        state=phase.state,
-                    )
+            phases = [
+                traci.trafficlight.Phase(
+                    duration=phase.duration,
+                    minDur=phase.minDur,
+                    maxDur=phase.maxDur,
+                    state=phase.state,
                 )
+                for phase in logic.phases
+            ]
             traci.trafficlight.setProgramLogic(
                 tl_id,
                 traci.trafficlight.Logic(
@@ -53,28 +55,38 @@ class TrafficLightManager:
             )
 
     def calculate_waiting_time(self):
-        total_waiting_time = {}
-        average_waiting_time = {}
-        tree = ET.parse(f"output/queue_{self.args.simulation}{self.idx}.xml")
-        root = tree.getroot()
+        for v in self.conn.vehicle.getArrivedIDList():
+            route = self.conn.vehicle.getRoute(v)
+            for edge in route:
+                if edge not in self.total_waiting_time:
+                    self.total_waiting_time[edge] = 0
+                self.total_waiting_time[
+                    edge
+                ] += self.conn.vehicle.getAccumulatedWaitingTime(v)
+        return self.total_waiting_time
 
-        for timestep in root.findall("data"):
-            lanes = timestep.find("lanes")
-            if lanes is not None:
-                for lane in lanes.findall("lane"):
-                    lane_id = lane.get("id")
-                    queueing_time = float(lane.get("queueing_time"))
+    def calculate_travel_time(self):
+        for v in self.conn.simulation.getDepartedIDList():
+            self.departure_times[v] = self.conn.simulation.getTime()
 
-                    for tl, _ in self.traffic_light_logics:
-                        if lane_id in self.controlled_lanes.get(tl, []):
-                            if tl not in total_waiting_time:
-                                total_waiting_time[tl] = 0.0
-                            total_waiting_time[tl] += queueing_time
-                            average_waiting_time[tl] = round(
-                                total_waiting_time[tl] / self.steps, 2
-                            )
-        self.average_waiting_time = average_waiting_time
-        self.total_waiting_time = total_waiting_time
+        for v in self.conn.simulation.getArrivedIDList():
+            arrival_time = self.conn.simulation.getTime()
+            travel_time = arrival_time - self.departure_times[v]
+            self.travel_times[v] = travel_time
+            del self.departure_times[v]
+        return self.travel_times
 
     def get_average_waiting_time(self):
+        if len(self.total_waiting_time) == 0:
+            return 0
+        self.average_waiting_time = sum(self.total_waiting_time.values()) / len(
+            self.total_waiting_time
+        )
+        print(self.average_waiting_time)
         return self.average_waiting_time
+
+    def get_average_travel_time(self):
+        if len(self.travel_times) == 0:
+            return 0
+        print(sum(self.travel_times.values()) / len(self.travel_times))
+        return sum(self.travel_times.values()) / len(self.travel_times)

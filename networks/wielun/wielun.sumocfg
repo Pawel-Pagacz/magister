@@ -13,7 +13,7 @@
     </input>
 
     <output>
-        <queue-output value="simulation.queue.xml"/>
+        <!-- <queue-output value="simulation.queue.xml"/> -->
         <!-- <summary-output value="simulation.summary.xml"/>
         <emission-output value="simulation.emission.xml"/> -->
     </output>
@@ -22,6 +22,7 @@
         <ignore-route-errors value="true"/>
         <time-to-teleport value="200"/>
         <time-to-teleport.remove value="true"/>
+        <waiting-time-memory value="7000"/>
     </processing>
 
     <routing>
@@ -41,5 +42,11 @@
             <delay value="20"/>
         </viewsettings>
     </gui_only>
+
+    <time>
+        <begin value="25200"/> 
+        <end value="75600"/>
+        <step-length value="1"/>
+    </time>
 
 </configuration>

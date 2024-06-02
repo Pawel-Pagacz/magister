@@ -76,13 +76,13 @@ class DistributeProcesses:
         self.idx = i
         sim.gen_sim()
         logic, fitness = sim.run()
-        # save_to_csv(
-        #     logic_data=logic,
-        #     values_data=fitness,
-        #     population=self.population_idx,
-        #     csv_file_path="output/logic_data.csv",
-        #     pop_size=args.pop_size,
-        # )
+        save_to_csv(
+            logic_data=logic,
+            values_data=fitness,
+            population=self.population_idx,
+            csv_file_path="output/logic_data.csv",
+            pop_size=args.pop_size,
+        )
         return logic, fitness
 
     def run_simulation(self, population):
@@ -151,7 +151,7 @@ class DistributeProcesses:
             self.population_idx += 1
             data = self.run_simulation(population=self.ga.child_population)
             self.ga.child_fitness = [item[1] for item in data]
-            # self.ga.replace_worst_child_with_best_parent()
+            self.ga.replace_worst_child_with_best_parent()
             self.ga.parent_population = self.ga.child_population
             self.ga.parent_fitness = self.ga.child_fitness
             self.child_population = None
