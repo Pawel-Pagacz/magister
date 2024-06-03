@@ -55,7 +55,7 @@ def parse_args():
     parser.add_argument(
         "-steps",
         type=int,
-        default=86400,
+        default=50400,
         dest="steps",
         help="length of simulation in seconds/steps",
     )

@@ -36,13 +36,13 @@
     <trip id="T10" depart="5422.07" from="546630808#0" to="-172138458#0" type="trailer" fromTaz="taz_21" toTaz="taz_9" departLane="free" departSpeed="max"/>
     <trip id="T9" depart="5692.86" from="37698287#0" to="24983296#0" type="trailer" fromTaz="taz_2" toTaz="taz_3" departLane="free" departSpeed="max"/>
     <trip id="T7" depart="5769.75" from="22788986#0" to="455164873#0" type="trailer" fromTaz="taz_13" toTaz="taz_16" departLane="free" departSpeed="max"/>
-    <trip id="T14" depart="7525.69" from="114549365" to="37697524#3" type="trailer" fromTaz="taz_20" toTaz="taz_1" departLane="free" departSpeed="max"/>
+    <trip id="T14" depart="7525.69" from="114549365" to="E13" type="trailer" fromTaz="taz_20" toTaz="taz_1" departLane="free" departSpeed="max"/>
     <trip id="T11" depart="8884.20" from="-E3" to="-312558169#8" type="trailer" fromTaz="taz_14" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T12" depart="9541.13" from="455164873#0" to="387896057#1" type="trailer" fromTaz="taz_16" toTaz="taz_20" departLane="free" departSpeed="max"/>
     <trip id="T13" depart="9642.60" from="1107387846#0" to="1270713703" type="trailer" fromTaz="taz_19" toTaz="taz_16" departLane="free" departSpeed="max"/>
     <trip id="T17" depart="11119.61" from="191002276" to="172136126#3" type="trailer" fromTaz="taz_11" toTaz="taz_10" departLane="free" departSpeed="max"/>
     <trip id="T18" depart="11469.55" from="-505617519" to="29270655" type="trailer" fromTaz="taz_13" toTaz="taz_12" departLane="free" departSpeed="max"/>
-    <trip id="T20" depart="12069.21" from="28354638#0" to="1270591223#1" type="trailer" fromTaz="taz_15" toTaz="taz_16" departLane="free" departSpeed="max"/>
+    <trip id="T20" depart="12069.21" from="E15" to="1270591223#1" type="trailer" fromTaz="taz_15" toTaz="taz_16" departLane="free" departSpeed="max"/>
     <trip id="T21" depart="13053.21" from="504389709" to="-506686957" type="trailer" fromTaz="taz_5" toTaz="taz_20" departLane="free" departSpeed="max"/>
     <trip id="T15" depart="14102.66" from="37697524#4" to="-16314714#11" type="trailer" fromTaz="taz_1" toTaz="taz_4" departLane="free" departSpeed="max"/>
     <trip id="T16" depart="14135.08" from="-224210299#0" to="17909448#1" type="trailer" fromTaz="taz_10" toTaz="taz_21" departLane="free" departSpeed="max"/>
@@ -56,7 +56,7 @@
     <trip id="T32" depart="18128.54" from="16237792" to="29447978#0" type="trailer" fromTaz="taz_11" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T42" depart="18398.44" from="-506686957" to="28458117#3" type="trailer" fromTaz="taz_20" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T38" depart="18441.97" from="28354638#2" to="222919722#3" type="trailer" fromTaz="taz_15" toTaz="taz_13" departLane="free" departSpeed="max"/>
-    <trip id="T36" depart="18592.10" from="22788986#4" to="28354638#0" type="trailer" fromTaz="taz_13" toTaz="taz_15" departLane="free" departSpeed="max"/>
+    <trip id="T36" depart="18592.10" from="22788986#4" to="E15" type="trailer" fromTaz="taz_13" toTaz="taz_15" departLane="free" departSpeed="max"/>
     <trip id="T29" depart="18652.54" from="-504338179" to="114549365" type="trailer" fromTaz="taz_1" toTaz="taz_20" departLane="free" departSpeed="max"/>
     <trip id="T35" depart="18835.99" from="355552851#0" to="191002276" type="trailer" fromTaz="taz_12" toTaz="taz_11" departLane="free" departSpeed="max"/>
     <trip id="T33" depart="18836.65" from="31236879" to="16237818" type="trailer" fromTaz="taz_11" toTaz="taz_21" departLane="free" departSpeed="max"/>
@@ -76,7 +76,7 @@
     <trip id="T49" depart="22666.39" from="172136126#3" to="30999112" type="trailer" fromTaz="taz_10" toTaz="taz_11" departLane="free" departSpeed="max"/>
     <trip id="T50" depart="22883.06" from="-510994962" to="22661276#3" type="trailer" fromTaz="taz_10" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T45" depart="23137.58" from="43631333" to="286864438#0" type="trailer" fromTaz="taz_1" toTaz="taz_2" departLane="free" departSpeed="max"/>
-    <trip id="T60" depart="23358.52" from="28354638#0" to="511360215" type="trailer" fromTaz="taz_15" toTaz="taz_12" departLane="free" departSpeed="max"/>
+    <trip id="T60" depart="23358.52" from="E15" to="511360215" type="trailer" fromTaz="taz_15" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T57" depart="23400.26" from="31236879" to="247597656#0" type="trailer" fromTaz="taz_11" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T52" depart="23630.54" from="-172136126#2" to="28458117#3" type="trailer" fromTaz="taz_10" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T44" depart="24018.91" from="312580821#0" to="44498474#3" type="trailer" fromTaz="taz_1" toTaz="taz_16" departLane="free" departSpeed="max"/>
@@ -107,7 +107,7 @@
     <trip id="T73" depart="27576.72" from="172136126#4" to="-312558169#7" type="trailer" fromTaz="taz_10" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T78" depart="27621.21" from="127897753" to="-349642256" type="trailer" fromTaz="taz_11" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T84" depart="27796.25" from="188337254#1" to="188337251" type="trailer" fromTaz="taz_12" toTaz="taz_11" departLane="free" departSpeed="max"/>
-    <trip id="T85" depart="27892.95" from="-22661276#2" to="28354638#0" type="trailer" fromTaz="taz_12" toTaz="taz_15" departLane="free" departSpeed="max"/>
+    <trip id="T85" depart="27892.95" from="-22661276#2" to="E15" type="trailer" fromTaz="taz_12" toTaz="taz_15" departLane="free" departSpeed="max"/>
     <trip id="T70" depart="27901.32" from="620427579#0" to="188337251" type="trailer" fromTaz="taz_10" toTaz="taz_11" departLane="free" departSpeed="max"/>
     <trip id="T95" depart="27920.57" from="1011207715" to="114549383#1" type="trailer" fromTaz="taz_2" toTaz="taz_20" departLane="free" departSpeed="max"/>
     <trip id="T83" depart="27969.21" from="188337232#0" to="30999141" type="trailer" fromTaz="taz_12" toTaz="taz_11" departLane="free" departSpeed="max"/>
@@ -293,7 +293,7 @@
     <trip id="T248" depart="49505.77" from="-172136126#2" to="127897753" type="trailer" fromTaz="taz_10" toTaz="taz_11" departLane="free" departSpeed="max"/>
     <trip id="T265" depart="49749.40" from="190721347#4" to="349642244" type="trailer" fromTaz="taz_16" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T269" depart="49794.11" from="-37698287#2" to="856059031" type="trailer" fromTaz="taz_2" toTaz="taz_20" departLane="free" departSpeed="max"/>
-    <trip id="T263" depart="50155.26" from="16313052#0" to="28354638#0" type="trailer" fromTaz="taz_14" toTaz="taz_15" departLane="free" departSpeed="max"/>
+    <trip id="T263" depart="50155.26" from="16313052#0" to="E15" type="trailer" fromTaz="taz_14" toTaz="taz_15" departLane="free" departSpeed="max"/>
     <trip id="T258" depart="50335.06" from="191002276" to="28458114" type="trailer" fromTaz="taz_11" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T249" depart="50366.23" from="-510994962" to="16237792" type="trailer" fromTaz="taz_10" toTaz="taz_11" departLane="free" departSpeed="max"/>
     <trip id="T285" depart="50662.38" from="30999112" to="-22661274" type="trailer" fromTaz="taz_11" toTaz="taz_12" departLane="free" departSpeed="max"/>
@@ -370,7 +370,7 @@
     <trip id="T332" depart="59486.14" from="510994963" to="-16752120" type="trailer" fromTaz="taz_10" toTaz="taz_11" departLane="free" departSpeed="max"/>
     <trip id="T337" depart="59585.77" from="1018244909#3" to="187980738" type="trailer" fromTaz="taz_10" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T339" depart="59661.47" from="-1018244909#1" to="247597656#0" type="trailer" fromTaz="taz_10" toTaz="taz_21" departLane="free" departSpeed="max"/>
-    <trip id="T353" depart="59739.49" from="28354638#0" to="29270655" type="trailer" fromTaz="taz_15" toTaz="taz_12" departLane="free" departSpeed="max"/>
+    <trip id="T353" depart="59739.49" from="E15" to="29270655" type="trailer" fromTaz="taz_15" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T344" depart="59749.50" from="30999112" to="114815953#0" type="trailer" fromTaz="taz_11" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T341" depart="59931.11" from="31236879" to="-29270668" type="trailer" fromTaz="taz_11" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T349" depart="59973.07" from="-349642241" to="-1270713703" type="trailer" fromTaz="taz_12" toTaz="taz_16" departLane="free" departSpeed="max"/>
@@ -421,7 +421,7 @@
     <trip id="T389" depart="65437.90" from="1083262913" to="-504338179" type="trailer" fromTaz="taz_0" toTaz="taz_1" departLane="free" departSpeed="max"/>
     <trip id="T406" depart="65439.44" from="-505617519" to="623319224" type="trailer" fromTaz="taz_13" toTaz="taz_16" departLane="free" departSpeed="max"/>
     <trip id="T403" depart="65737.19" from="191002276" to="187980695#0" type="trailer" fromTaz="taz_11" toTaz="taz_21" departLane="free" departSpeed="max"/>
-    <trip id="T410" depart="65800.32" from="28354638#0" to="-222919722#2" type="trailer" fromTaz="taz_15" toTaz="taz_13" departLane="free" departSpeed="max"/>
+    <trip id="T410" depart="65800.32" from="E15" to="-222919722#2" type="trailer" fromTaz="taz_15" toTaz="taz_13" departLane="free" departSpeed="max"/>
     <trip id="T392" depart="65967.72" from="504335877#2" to="-634946207" type="trailer" fromTaz="taz_1" toTaz="taz_3" departLane="free" departSpeed="max"/>
     <trip id="T401" depart="66005.75" from="127897753" to="371352966#2" type="trailer" fromTaz="taz_11" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T411" depart="66160.22" from="642317657#3" to="235445507" type="trailer" fromTaz="taz_20" toTaz="taz_21" departLane="free" departSpeed="max"/>
@@ -482,7 +482,7 @@
     <trip id="T454" depart="74489.26" from="191002278#0" to="114959443" type="trailer" fromTaz="taz_12" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T455" depart="74555.41" from="22788986#4" to="22661276#7" type="trailer" fromTaz="taz_13" toTaz="taz_12" departLane="free" departSpeed="max"/>
     <trip id="T442" depart="74723.01" from="187357977" to="-506686960" type="trailer" fromTaz="taz_1" toTaz="taz_20" departLane="free" departSpeed="max"/>
-    <trip id="T457" depart="75001.16" from="22788986#3" to="28354638#0" type="trailer" fromTaz="taz_13" toTaz="taz_15" departLane="free" departSpeed="max"/>
+    <trip id="T457" depart="75001.16" from="22788986#3" to="E15" type="trailer" fromTaz="taz_13" toTaz="taz_15" departLane="free" departSpeed="max"/>
     <trip id="T452" depart="75013.69" from="191002276" to="17909448#1" type="trailer" fromTaz="taz_11" toTaz="taz_21" departLane="free" departSpeed="max"/>
     <trip id="T453" depart="75196.04" from="22661276#9" to="188337251" type="trailer" fromTaz="taz_12" toTaz="taz_11" departLane="free" departSpeed="max"/>
     <trip id="T451" depart="75244.25" from="16237792" to="-349642244" type="trailer" fromTaz="taz_11" toTaz="taz_12" departLane="free" departSpeed="max"/>

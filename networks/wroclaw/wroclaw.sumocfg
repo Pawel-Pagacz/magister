@@ -7,17 +7,27 @@
 
     <input>
         <net-file value="wroclaw.net.xml"/>
-        <route-files value=" odtrips/wroclaw_bus.odtrips.xml, odtrips/wroclaw_moto.odtrips.xml, odtrips/wroclaw_car.odtrips.xml, odtrips/wroclaw_truck.odtrips.xml, odtrips/wroclaw_trailer.odtrips.xml"/>
+        <!-- <route-files value=" odtrips/wroclaw_bus.odtrips.xml, odtrips/wroclaw_moto.odtrips.xml, odtrips/wroclaw_car.odtrips.xml, odtrips/wroclaw_truck.odtrips.xml, odtrips/wroclaw_trailer.odtrips.xml"/> -->
+        <route-files value="odtrips/wroclaw_car.odtrips.xml"/>
         <additional-files value="wroclaw.poly.xml"/>
     </input>
 
+    <output>
+        <!-- <queue-output value="simulation.queue.xml"/> -->
+        <!-- <summary-output value="simulation.summary.xml"/>
+        <emission-output value="simulation.emission.xml"/> -->
+    </output>
     <processing>
         <ignore-route-errors value="true"/>
+        <time-to-teleport value="200"/>
+        <time-to-teleport.remove value="true"/>
+        <waiting-time-memory value="7000"/>
+        <scale value="0.6"/>
     </processing>
 
     <routing>
-        <device.rerouting.adaptation-steps value="18"/>
-        <device.rerouting.adaptation-interval value="10"/>
+        <!-- <device.rerouting.adaptation-steps value="18"/>
+        <device.rerouting.adaptation-interval value="10"/> -->
     </routing>
 
     <report>
@@ -29,6 +39,12 @@
     <gui_only>
         <gui-settings-file value="wroclaw.view.xml"/>
     </gui_only>
+
+    <time>
+        <begin value="25200"/> 
+        <end value="75600"/>
+        <step-length value="1"/>
+    </time>
 
 </configuration>
 
