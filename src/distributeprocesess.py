@@ -47,8 +47,6 @@ class DistributeProcesses:
             args.cfg_path, args.net_path = get_simulation(args.simulation)
 
         dummy_sim = SumoSim(
-            cfg_path=args.cfg_path,
-            steps=args.steps,
             nogui=True,
             args=args,
             population_idx=self.population_idx,
@@ -65,8 +63,6 @@ class DistributeProcesses:
 
     def simulation(self, i, args, logic):
         sim = SumoSim(
-            cfg_path=args.cfg_path,
-            steps=args.steps,
             nogui=True,
             args=args,
             idx=i,
@@ -76,9 +72,12 @@ class DistributeProcesses:
         self.idx = i
         sim.gen_sim()
         logic, fitness = sim.run()
+        mean, std = sim.sim_stats()
+
         save_to_csv(
             logic_data=logic,
-            values_data=fitness,
+            values_mean=mean,
+            values_std=std,
             population=self.population_idx,
             csv_file_path="output/logic_data.csv",
             pop_size=args.pop_size,
@@ -89,6 +88,10 @@ class DistributeProcesses:
         with ProcessPoolExecutor(max_workers=self.args.n) as executor:
             simulation_result = []
             for i in range(self.args.pop_size):
+                write_line_to_file(
+                    "logs/log.txt", "a", f"PROCESSES POP, {population[i]}"
+                )
+                # print("PROCESSES POP", population[i])
                 logic = population[i]
                 simulation_result.append(
                     executor.submit(self.simulation, i, self.args, logic)
@@ -96,8 +99,8 @@ class DistributeProcesses:
 
             results = []
             for future in simulation_result:
-                result = future.result()
-                results.append(result)
+                logic, result = future.result()
+                results.append((logic, result))
             data_to_save = {
                 "population_idx": self.population_idx,
                 "results": results,
@@ -134,24 +137,35 @@ class DistributeProcesses:
                 )
                 self.ga.parent_fitness = [item[1] for item in data]
 
+            write_line_to_file(
+                "logs/log.txt", "a", f"PARFITNESS, {self.ga.parent_fitness}"
+            )
+            write_line_to_file(
+                "logs/log.txt", "a", f"PARPOP, {self.ga.parent_population}"
+            )
+            # print("PARFITNESS", self.ga.parent_fitness)
+            # print("PARPOP", self.ga.parent_population)
+
             self.evaluate_population(
                 parent_population=self.ga.parent_population,
                 parent_fitness=self.ga.parent_fitness,
                 child_population=None,
                 child_fitness=None,
             )
-            for logic, fitness in data:
-                save_to_csv(
-                    logic_data=logic,
-                    values_data=fitness,
-                    population=self.population_idx,
-                    csv_file_path="logs/logic_data.csv",
-                    pop_size=self.args.pop_size,
-                )
             self.population_idx += 1
             data = self.run_simulation(population=self.ga.child_population)
             self.ga.child_fitness = [item[1] for item in data]
-            self.ga.replace_worst_child_with_best_parent()
+
+            write_line_to_file(
+                "logs/log.txt", "a", f"CHILD FITNESS, {self.ga.child_fitness}"
+            )
+            write_line_to_file(
+                "logs/log.txt", "a", f"CHILD POP, {self.ga.child_population}"
+            )
+            # print("CHILD FITNESS", self.ga.child_fitness)
+            # print("CHILD POP", self.ga.child_population)
+
+            best_pi, wors_ci = self.ga.replace_worst_child_with_best_parent()
             self.ga.parent_population = self.ga.child_population
             self.ga.parent_fitness = self.ga.child_fitness
             self.child_population = None

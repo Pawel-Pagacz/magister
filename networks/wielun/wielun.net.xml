@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2024-06-02 20:26:13 by Eclipse SUMO netedit Version 1.19.0
+<!-- generated on 2024-06-03 07:51:17 by Eclipse SUMO netedit Version 1.19.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
@@ -2137,7 +2137,6 @@
         <phase duration="3"  state="rrrryy"/>
         <phase duration="25" state="rrGGrr"/>
         <phase duration="3"  state="rryyrr"/>
-        <param key="show-detectors" value="true"/>
     </tlLogic>
     <tlLogic id="429723386" type="static" programID="0" offset="0">
         <phase duration="30" state="GrrrGG"/>
@@ -2146,14 +2145,12 @@
         <phase duration="3"  state="yyrrrr"/>
         <phase duration="20" state="rrGGrr"/>
         <phase duration="3"  state="rryyrr"/>
-        <param key="show-detectors" value="true"/>
     </tlLogic>
     <tlLogic id="cluster_2556814094_429774589" type="static" programID="0" offset="0">
         <phase duration="41" state="GGgrrrGGgrrr"/>
         <phase duration="3"  state="yyyrrryyyrrr"/>
         <phase duration="41" state="rrrGGgrrrGGg"/>
         <phase duration="3"  state="rrryyyrrryyy"/>
-        <param key="show-detectors" value="true"/>
     </tlLogic>
     <tlLogic id="cluster_259602058_2924318333" type="static" programID="0" offset="0">
         <phase duration="20" state="rrrGGGrrrrrr"/>
@@ -2164,7 +2161,6 @@
         <phase duration="5"  state="rrrrrrrrrryy"/>
         <phase duration="20" state="rrrrrrGGGrrr"/>
         <phase duration="5"  state="rrrrrryyyrrr"/>
-        <param key="show-detectors" value="true"/>
     </tlLogic>
 
     <junction id="11041822737" type="priority" x="2346.41" y="1115.72" incLanes="777538785_0 1196694190_0" intLanes=":11041822737_0_0 :11041822737_1_0" shape="2346.75,1118.18 2348.89,1115.80 2347.36,1114.07 2347.01,1113.31 2346.77,1112.48 2346.52,1111.47 2346.12,1110.17 2343.12,1111.27 2343.23,1112.01 2343.12,1112.24 2342.90,1112.36 2342.58,1112.38 2342.15,1112.30 2340.32,1115.55 2342.49,1115.75 2343.57,1116.11 2344.64,1116.63 2345.70,1117.32">

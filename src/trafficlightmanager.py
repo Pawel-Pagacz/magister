@@ -1,6 +1,8 @@
 import traci
 import sumolib
 import time
+import numpy as np
+from src.generate_data.saveToCsv import write_line_to_file
 
 
 class TrafficLightManager:
@@ -37,8 +39,6 @@ class TrafficLightManager:
             phases = [
                 traci.trafficlight.Phase(
                     duration=phase.duration,
-                    minDur=phase.minDur,
-                    maxDur=phase.maxDur,
                     state=phase.state,
                 )
                 for phase in logic.phases
@@ -82,11 +82,21 @@ class TrafficLightManager:
         self.average_waiting_time = sum(self.total_waiting_time.values()) / len(
             self.total_waiting_time
         )
-        print(self.average_waiting_time)
         return self.average_waiting_time
 
+    def get_travel_time(self):
+        return [self.travel_times[v] for v in self.travel_times]
+
     def get_average_travel_time(self):
-        if len(self.travel_times) == 0:
+        tt = self.get_travel_time()
+        if len(tt) > 0:
+            return np.mean(tt)
+        else:
             return 0
-        print(sum(self.travel_times.values()) / len(self.travel_times))
-        return sum(self.travel_times.values()) / len(self.travel_times)
+
+    def get_std_travel_time(self):
+        tt = self.get_travel_time()
+        if len(tt) > 0:
+            return np.std(tt)
+        else:
+            return 0

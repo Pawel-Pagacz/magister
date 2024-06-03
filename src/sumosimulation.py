@@ -3,6 +3,7 @@ import traci
 import numpy as np
 from src.trafficlightmanager import TrafficLightManager
 from collections import namedtuple
+import time
 
 if "SUMO_HOME" in os.environ:
     tools = os.path.join(os.environ["SUMO_HOME"], "tools")
@@ -11,16 +12,11 @@ if "SUMO_HOME" in os.environ:
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
-Phase = namedtuple("Phase", ["duration", "state", "minDur", "maxDur"])
-Logic = namedtuple(
-    "Logic", ["programID", "type", "currentPhaseIndex", "phases", "subParameter"]
-)
-
 
 class SumoSim:
-    def __init__(self, cfg_path, steps, nogui, args, idx, population_idx, logic=None):
-        self.cfg_path = cfg_path
-        self.steps = steps
+    def __init__(self, nogui, args, idx, population_idx, logic=None):
+        self.cfg_path = args.cfg_path
+        self.steps = args.steps
         self.sumo_cmd = "sumo" if nogui else "sumo-gui"
         self.args = args
         self.idx = idx
@@ -61,20 +57,38 @@ class SumoSim:
         self.steps = 0
         if self.logic == None:
             self.logic = self.tlm.get_traffic_light_logics()
-            return self.close()
+            self.close()
+            return self.logic, self.tlm.get_average_travel_time()
         else:
             self.tlm.set_traffic_light_logics(self.logic)
 
     def run(self):
+        start_time = time.time()
+        simulation_time = 0
         while (
             traci.simulation.getMinExpectedNumber() > 0 and self.steps < self.args.steps
         ):
+            if self.steps % 10000 == 0:
+                end_time = time.time()
+                simulation_time = end_time - start_time
+                print("Time taken for 10000 steps: ", simulation_time, " seconds")
+                start_time = time.time()
+            if self.args.simulation == "wielun" and simulation_time > 120:
+                print(
+                    self.steps,
+                    "steps took more than 120 seconds, exiting with fitness 999999",
+                )
+                self.sim_step()
+                return self.logic, 9999
+
             self.sim_step()
-        return self.close()
+        self.close()
+        if self.idx > -1:
+            return self.logic, self.tlm.get_average_travel_time()
+
+    def sim_stats(self):
+        return self.tlm.get_average_travel_time(), self.tlm.get_std_travel_time()
 
     def close(self):
         self.conn.close()
         self.steps = 0
-        if self.idx > -1:
-            self.tlm.get_average_travel_time()
-        return self.logic, self.tlm.get_average_travel_time()
