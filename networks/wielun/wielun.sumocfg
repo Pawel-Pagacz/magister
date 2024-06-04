@@ -44,8 +44,10 @@
     </gui_only>
 
     <time>
-        <begin value="25200"/> 
-        <end value="75600"/>
+        <!-- <begin value="50000"/> 
+        <end value="75600"/> -->
+        <begin value="20000"/> 
+        <end value="30000"/>
         <step-length value="1"/>
     </time>
 

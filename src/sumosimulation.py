@@ -2,7 +2,6 @@ import os, sys, subprocess
 import traci
 import numpy as np
 from src.trafficlightmanager import TrafficLightManager
-from collections import namedtuple
 import time
 
 if "SUMO_HOME" in os.environ:
