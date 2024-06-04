@@ -2,7 +2,6 @@ import traci
 import sumolib
 import time
 import numpy as np
-from src.generate_data.saveToCsv import write_line_to_file
 
 
 class TrafficLightManager:

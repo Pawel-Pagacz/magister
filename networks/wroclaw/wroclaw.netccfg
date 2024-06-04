@@ -6,8 +6,8 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml"/>
-        <osm-files value="wroclaw_bbox.osm.xml"/>
+        <!-- <type-files value="${SUMO_HOME}/data/typemap/osmNetconvert.typ.xml"/> -->
+        <!-- <osm-files value="wroclaw_bbox.osm.xml"/> -->
     </input>
 
     <output>
