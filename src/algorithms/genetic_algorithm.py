@@ -62,8 +62,14 @@ class GeneticAlgorithm:
         self.combined_list = list(zip(logic_list, sum_fitness_list))
 
     def calculate_probabilities(self, normalized_fitness_list):
-        total_fitness = sum(normalized_fitness_list)
-        probabilities = [fitness / total_fitness for fitness in normalized_fitness_list]
+        # total_fitness = sum(normalized_fitness_list)
+        # probabilities = [fitness / total_fitness for fitness in normalized_fitness_list]
+        inverted_fitness_list = [1.0 / fitness for fitness in normalized_fitness_list]
+        total_inverted_fitness = sum(inverted_fitness_list)
+        probabilities = [
+            inverted_fitness / total_inverted_fitness
+            for inverted_fitness in inverted_fitness_list
+        ]
         write_line_to_file("logs/log.txt", "a", f"PROBABILITIES: {probabilities}")
         # print(probabilities)
         return probabilities
@@ -75,39 +81,22 @@ class GeneticAlgorithm:
             range(len(logic_list)), weights=probabilities, k=1
         )[0]
         selected_logic = logic_list[selected_index]
+        write_line_to_file("logs/log.txt", "a", f"SELECTED IDX: {selected_index}")
+        # write_line_to_file("logs/log.txt", "a", f"SELECTED LOGIC: {selected_logic}")
         return selected_logic
 
     def tournament_selection(self, tournament_size=2):
         logic_list, fitness_list = zip(*self.combined_list)
         selected_logics = random.choices(logic_list, k=tournament_size)
-        for logic in selected_logics:
-            write_line_to_file("logs/log.txt", "a", f"SELECTED LOGIC: {logic}")
-            # print(logic_list.index(logic))
+        # for logic in selected_logics:
+        #     write_line_to_file("logs/log.txt", "a", f"SELECTED LOGIC: {logic}")
+        # print(logic_list.index(logic))
         selected_fitness = [
             fitness_list[logic_list.index(logic)] for logic in selected_logics
         ]
         selected_index = selected_fitness.index(min(selected_fitness))
         selected_logic = selected_logics[selected_index]
         return selected_logic
-
-        # logic_list, fitness_list = zip(*self.combined_list)
-
-        # for _ in range(tournament_size):
-        #     selected_logic = random.choice(logic_list)
-        #     selected_logics.append(selected_logic)
-        #     self.selected_logics.append(selected_logic)
-        #     for logic in self.selected_logics:
-        #         index = logic_list.index(logic)
-        #         del logic_list[index]
-        #         del fitness_list[index]
-
-        # selected_fitness = [
-        #     fitness_list[selected_logics.index(logic)] for logic in selected_logics
-        # ]
-        # selected_index = selected_fitness.index(min(selected_fitness))
-
-        # selected_logic = selected_logics[selected_index]
-        # return selected_logic
 
     def evaluate_population(self):
         if self.child_population == None:
@@ -141,7 +130,7 @@ class GeneticAlgorithm:
     #             child2.append(parent1[i])
     #     return child1, child2
 
-    def crossover(self, parent1, parent2, alpha=0.5):
+    def crossover(self, parent1, parent2, alpha=0.3):
         if random.random() > self.crossover_rate:
             return self.generate_random_durations(
                 parent1
@@ -196,8 +185,12 @@ class GeneticAlgorithm:
             print(i)
             parent1_logic = self.evaluate_population()
             parent2_logic = self.evaluate_population()
+            parent1_logic_copy = copy.deepcopy(parent1_logic)
+            parent2_logic_copy = copy.deepcopy(parent2_logic)
 
-            child1_logic, child2_logic = self.crossover(parent1_logic, parent2_logic)
+            child1_logic, child2_logic = self.crossover(
+                parent1_logic_copy, parent2_logic_copy
+            )
             if random.random() < self.mutation_rate:
                 child1_logic = self.mutate(child1_logic)
             if random.random() < self.mutation_rate:
@@ -211,41 +204,30 @@ class GeneticAlgorithm:
 
     def replace_worst_child_with_best_parent(self):
 
-        write_line_to_file("logs/log.txt", "a", f"BEFORE C: {self.child_population}")
-        write_line_to_file("logs/log.txt", "a", f"BEFORE P: {self.parent_population}")
-        # print("BEFORE C:", self.child_population)
-        # print("BEFORE P:", self.parent_population)
         best_parent_index = self.sum_parent_fitness.index(min(self.sum_parent_fitness))
-        write_line_to_file(
-            "logs/log.txt", "a", f"BEST PARENT INDEX: {best_parent_index}"
-        )
-        # print(best_parent_index)
+        # write_line_to_file(
+        #     "logs/log.txt", "a", f"BEST PARENT INDEX: {best_parent_index}"
+        # )
         best_parent_logic = self.parent_population[best_parent_index]
-        write_line_to_file(
-            "logs/log.txt", "a", f"BEST PARENT LOGIC: {best_parent_logic}"
-        )
-        # print(best_parent_logic)
+        # write_line_to_file(
+        #     "logs/log.txt", "a", f"BEST PARENT LOGIC: {best_parent_logic}"
+        # )
         best_parent_fitness = self.parent_fitness[best_parent_index]
-        write_line_to_file(
-            "logs/log.txt", "a", f"BEST PARENT FITNESS: {best_parent_fitness}"
-        )
-        # print(best_parent_fitness)
+        # write_line_to_file(
+        #     "logs/log.txt", "a", f"BEST PARENT FITNESS: {best_parent_fitness}"
+        # )
         sum_child_fitness = self.sum_fitness_all(self.child_fitness)
-        write_line_to_file(
-            "logs/log.txt", "a", f"SUM CHILD FITNESS: {sum_child_fitness}"
-        )
-        # print(sum_child_fitness)
+        # write_line_to_file(
+        #     "logs/log.txt", "a", f"SUM CHILD FITNESS: {sum_child_fitness}"
+        # )
         worst_child_index = sum_child_fitness.index(max(sum_child_fitness))
-        write_line_to_file(
-            "logs/log.txt", "a", f"WORST CHILD INDEX: {worst_child_index}"
-        )
-        # print(worst_child_index)
+        # write_line_to_file(
+        #     "logs/log.txt", "a", f"WORST CHILD INDEX: {worst_child_index}"
+        # )
         self.child_population[worst_child_index] = best_parent_logic
         self.child_fitness[worst_child_index] = best_parent_fitness
-        write_line_to_file("logs/log.txt", "a", f"AFTER: {self.child_population}")
-        write_line_to_file("logs/log.txt", "a", f"AFTER P: {self.parent_population}")
-        # print("AFTER:", self.child_population)
-        # print("AFTER P:", self.parent_population)
+        # write_line_to_file("logs/log.txt", "a", f"AFTER: {self.child_population}")
+        # write_line_to_file("logs/log.txt", "a", f"AFTER P: {self.parent_population}")
         return best_parent_index, worst_child_index
 
     def load_population(self, pickle_file_path):
