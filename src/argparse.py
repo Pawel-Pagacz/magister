@@ -25,7 +25,6 @@ def parse_args():
         "-netpath",
         type=str,
         default="networks/wielun/wielun.net.xml",
-        # default="networks/wroclaw/wroclaw.net.xml",
         dest="net_path",
         help="path to desired simulation network file, default: networks/wielun/wielun.net.xml",
     )
@@ -33,7 +32,6 @@ def parse_args():
         "-sumocfg",
         type=str,
         default="networks/wielun/wielun.sumocfg",
-        # default="networks/wroclaw/wroclaw.sumocfg",
         dest="cfg_path",
         help="path to desired simulation configuration file, default: networks/wielun/wielun.sumocfg",
     )
