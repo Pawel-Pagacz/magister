@@ -30,6 +30,7 @@ class DistributeProcesses:
         algorithms = ["GA"]
         self.idx = 0
         self.population_idx = 0
+        self.scores = {}
 
         if algorithm not in algorithms:
             print(
@@ -74,15 +75,20 @@ class DistributeProcesses:
         logic, fitness = sim.run()
         mean, std = sim.sim_stats()
 
-        save_to_csv(
-            logic_data=logic,
-            values_mean=mean,
-            values_std=std,
-            population=self.population_idx,
-            csv_file_path="output/logic_data.csv",
-            pop_size=args.pop_size,
-        )
-        return logic, fitness
+        if self.population_idx not in self.scores:
+            self.scores[self.population_idx] = {}
+            print("HERE")
+        self.scores[self.population_idx][i] = {"logic": logic, "mean": mean, "std": std}
+        # print(self.scores)
+        # save_to_csv(
+        #     logic_data=logic,
+        #     values_mean=mean,
+        #     values_std=std,
+        #     population=self.population_idx,
+        #     csv_file_path="output/logic_data.csv",
+        #     pop_size=args.pop_size,
+        # )
+        return logic, fitness, mean, std, i
 
     def run_simulation(self, population):
         with ProcessPoolExecutor(max_workers=self.args.n) as executor:
@@ -91,23 +97,22 @@ class DistributeProcesses:
                 write_line_to_file(
                     "logs/log.txt", "a", f"PROCESSES POP, {population[i]}"
                 )
-                # print("PROCESSES POP", population[i])
                 logic = population[i]
                 simulation_result.append(
                     executor.submit(self.simulation, i, self.args, logic)
                 )
-
             results = []
             for future in simulation_result:
-                logic, result = future.result()
+                logic, result, mean, std, index = future.result()
                 results.append((logic, result))
-            data_to_save = {
-                "population_idx": self.population_idx,
-                "results": results,
-            }
-            pickle_file_path = "logs/saved_data.pkl"
-            with open(pickle_file_path, "wb") as file:
-                pickle.dump(data_to_save, file)
+
+                if self.population_idx not in self.scores:
+                    self.scores[self.population_idx] = {}
+                self.scores[self.population_idx][index] = {
+                    "logic": logic,
+                    "mean": mean,
+                    "std": std,
+                }
             return results
 
     def evaluate_population(
@@ -125,6 +130,19 @@ class DistributeProcesses:
         )
         self.ga.generate_children()
 
+    def save_last_population(self):
+        results = []
+        for logic, fitness in zip(self.ga.parent_population, self.ga.parent_fitness):
+            results.append((logic, fitness))
+        data_to_save = {
+            "population_idx": self.population_idx,
+            "results": results,
+        }
+        pickle_file_path = "logs/saved_data.pkl"
+        with open(pickle_file_path, "wb") as file:
+            pickle.dump(data_to_save, file)
+        return results
+
     def run(self):
         start = 1
         while self.population_idx < self.args.nreplay:
@@ -133,19 +151,9 @@ class DistributeProcesses:
                 self.ga.parent_fitness = [item[1] for item in data]
             elif self.args.cont == 1 and start == 1:
                 data, self.population_idx = self.ga.load_population(
-                    pickle_file_path="logs/saved_data.pkl"
+                    pickle_file_path="output/saved_data.pkl"
                 )
                 self.ga.parent_fitness = [item[1] for item in data]
-
-            write_line_to_file(
-                "logs/log.txt", "a", f"PARFITNESS, {self.ga.parent_fitness}"
-            )
-            write_line_to_file(
-                "logs/log.txt", "a", f"PARPOP, {self.ga.parent_population}"
-            )
-            # print("PARFITNESS", self.ga.parent_fitness)
-            # print("PARPOP", self.ga.parent_population)
-
             self.evaluate_population(
                 parent_population=self.ga.parent_population,
                 parent_fitness=self.ga.parent_fitness,
@@ -155,19 +163,14 @@ class DistributeProcesses:
             self.population_idx += 1
             data = self.run_simulation(population=self.ga.child_population)
             self.ga.child_fitness = [item[1] for item in data]
-
-            write_line_to_file(
-                "logs/log.txt", "a", f"CHILD FITNESS, {self.ga.child_fitness}"
-            )
-            write_line_to_file(
-                "logs/log.txt", "a", f"CHILD POP, {self.ga.child_population}"
-            )
-            # print("CHILD FITNESS", self.ga.child_fitness)
-            # print("CHILD POP", self.ga.child_population)
-
-            best_pi, wors_ci = self.ga.replace_worst_child_with_best_parent()
+            best_pi, worst_ci = self.ga.replace_worst_child_with_best_parent()
+            self.scores[self.population_idx][worst_ci] = self.scores[
+                self.population_idx - 1
+            ][best_pi]
             self.ga.parent_population = self.ga.child_population
             self.ga.parent_fitness = self.ga.child_fitness
             self.child_population = None
             self.child_fitness = None
             start = 0
+            self.save_last_population()
+            save_scores_to_csv(self.scores)
