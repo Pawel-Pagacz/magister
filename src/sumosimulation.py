@@ -72,10 +72,10 @@ class SumoSim:
                 simulation_time = end_time - start_time
                 print("Time taken for 10000 steps: ", simulation_time, " seconds")
                 start_time = time.time()
-            if self.args.simulation == "wielun" and simulation_time > 120:
+            if self.args.simulation == "wroclaw" and simulation_time > 100:
                 print(
                     self.steps,
-                    "steps took more than 120 seconds, exiting with fitness 999999",
+                    "steps took more than 100 seconds, exiting with fitness 999999",
                 )
                 self.sim_step()
                 return self.logic, 9999
