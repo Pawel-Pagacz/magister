@@ -85,7 +85,7 @@ class GeneticAlgorithm:
         # write_line_to_file("logs/log.txt", "a", f"SELECTED LOGIC: {selected_logic}")
         return selected_logic
 
-    def tournament_selection(self, tournament_size=2):
+    def tournament_selection(self, tournament_size=3):
         logic_list, fitness_list = zip(*self.combined_list)
         selected_logics = random.choices(logic_list, k=tournament_size)
         # for logic in selected_logics:
@@ -103,9 +103,9 @@ class GeneticAlgorithm:
             self.combine_logic_with_fitness(
                 self.parent_population, self.sum_parent_fitness
             )
-        roulette_selected_logic = self.roulette_wheel_selection()
-        #tournament_selected_logic = self.tournament_selection(tournament_size=10)
-        return roulette_selected_logic
+        #roulette_selected_logic = self.roulette_wheel_selection()
+        tournament_selected_logic = self.tournament_selection(tournament_size=3)
+        #return roulette_selected_logic
         return tournament_selected_logic
 
     def generate_average_durations(self, traffic_logic_1, traffic_logic_2):
@@ -130,7 +130,7 @@ class GeneticAlgorithm:
     #             child2.append(parent1[i])
     #     return child1, child2
 
-    def crossover(self, parent1, parent2, alpha=0.6):
+    def crossover(self, parent1, parent2, alpha=0.3):
         if random.random() > self.crossover_rate:
             return self.generate_random_durations(
                 parent1
