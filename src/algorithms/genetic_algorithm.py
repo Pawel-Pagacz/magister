@@ -104,9 +104,9 @@ class GeneticAlgorithm:
                 self.parent_population, self.sum_parent_fitness
             )
         roulette_selected_logic = self.roulette_wheel_selection()
-        # tournament_selected_logic = self.tournament_selection(tournament_size=2)
+        #tournament_selected_logic = self.tournament_selection(tournament_size=10)
         return roulette_selected_logic
-        # return tournament_selected_logic
+        return tournament_selected_logic
 
     def generate_average_durations(self, traffic_logic_1, traffic_logic_2):
         for tl, logic in traffic_logic_1:
@@ -130,7 +130,7 @@ class GeneticAlgorithm:
     #             child2.append(parent1[i])
     #     return child1, child2
 
-    def crossover(self, parent1, parent2, alpha=0.3):
+    def crossover(self, parent1, parent2, alpha=0.6):
         if random.random() > self.crossover_rate:
             return self.generate_random_durations(
                 parent1
@@ -182,7 +182,7 @@ class GeneticAlgorithm:
     def generate_children(self):
         population_children = []
         for i in range(0, len(self.parent_population), 2):
-            print(i)
+            #print(i)
             parent1_logic = self.evaluate_population()
             parent2_logic = self.evaluate_population()
             parent1_logic_copy = copy.deepcopy(parent1_logic)
@@ -200,7 +200,7 @@ class GeneticAlgorithm:
             if i + 1 < len(self.parent_population):
                 population_children.append(child2_logic)
         self.child_population = population_children
-        print(self.child_population)
+        #print(self.child_population)
 
     def replace_worst_child_with_best_parent(self):
 
