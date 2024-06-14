@@ -85,7 +85,7 @@ class GeneticAlgorithm:
         # write_line_to_file("logs/log.txt", "a", f"SELECTED LOGIC: {selected_logic}")
         return selected_logic
 
-    def tournament_selection(self, tournament_size=3):
+    def tournament_selection(self, tournament_size=5):
         logic_list, fitness_list = zip(*self.combined_list)
         selected_logics = random.choices(logic_list, k=tournament_size)
         # for logic in selected_logics:
@@ -104,7 +104,7 @@ class GeneticAlgorithm:
                 self.parent_population, self.sum_parent_fitness
             )
         #roulette_selected_logic = self.roulette_wheel_selection()
-        tournament_selected_logic = self.tournament_selection(tournament_size=3)
+        tournament_selected_logic = self.tournament_selection(tournament_size=5)
         #return roulette_selected_logic
         return tournament_selected_logic
 

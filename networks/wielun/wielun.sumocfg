@@ -46,8 +46,8 @@
     <time>
         <!-- <begin value="28800"/> 
         <end value="75600"/> -->
-        <begin value="28800"/> 
-        <end value="75600"/>
+        <begin value="0"/> 
+        <end value="86400"/>
         <step-length value="1"/>
     </time>
 
